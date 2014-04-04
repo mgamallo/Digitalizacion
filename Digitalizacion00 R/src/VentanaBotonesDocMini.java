@@ -614,7 +614,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
          	 public void mouseClicked(MouseEvent evt)
          	 {
          		if (evt.getButton()==java.awt.event.MouseEvent.BUTTON3){
-         			cerrarAutoHotKey();
+         			cerrarAutoHotKey(false);
           			 JOptionPane.showMessageDialog(InicioIanus.jBultimoNombreSubido, "Teclas rápidas deshabilitadas");
            			
                	}
@@ -871,7 +871,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				if (InicioIanus.jButtonTeclas.getText().contains("Teclas Habilitadas")){
-					cerrarAutoHotKey();
+					cerrarAutoHotKey(false);
 					jPanel1.requestFocus();
 				}else{
 					abrirAutoHotKey();
@@ -984,7 +984,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 							//imprimeNombreDoc();
 						}
 						break;
-					case KeyEvent.VK_ESCAPE: cerrarAutoHotKey();break;
+					case KeyEvent.VK_ESCAPE: cerrarAutoHotKey(false);break;
 					case KeyEvent.VK_SPACE: 
 
 						InicioIanus.ClickImportante = InicioIanus.ultimoClick;
@@ -1216,7 +1216,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
     
     
 
-    public void cerrarAutoHotKey(){
+    public void cerrarAutoHotKey(boolean matarTodo){
     	
     	try {
 			Robot robot = new Robot();
@@ -1233,6 +1233,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 		String cmd2 = "taskkill.exe /F /IM TeclasExperimental.exe /T";
 		String cmd3 = "taskkill.exe /F /IM TeclasRapidas.exe /T";
     	
+		
 		Process hijo, hijo2, hijo3;
     	try {
     		
@@ -1255,14 +1256,19 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 			
 			*/
     		
-    		hijo = Runtime.getRuntime().exec(cmd);
+    		
 			hijo2 = Runtime.getRuntime().exec(cmd2);
 			hijo3 = Runtime.getRuntime().exec(cmd3);
 			
 			
-			hijo.waitFor();
+			
 			hijo2.waitFor();
 			hijo3.waitFor();
+			
+			if(matarTodo){
+				hijo = Runtime.getRuntime().exec(cmd);
+				hijo.waitFor();
+			}
 			
 			Thread.sleep(300);
 				
@@ -1279,7 +1285,10 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
      
      public void abrirAutoHotKey(){
     	 File archivo2;
-    	 File archivo3 = new File("cal\\ianus.exe");
+    	 
+    	 
+    	 // File archivo3 = new File("cal\\ianus.exe");
+    	 
     	 if(InicioIanus.documentacion != 2 && InicioIanus.documentacion != 3){
     		  archivo2 = new File("cal\\TeclasRapidas.exe");
     	 }
@@ -1293,10 +1302,11 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
  			InicioIanus.jButtonTeclas.setBackground(new Color(127,255,212));
 	    	InicioIanus.jButtonTeclas.setText("Teclas Habilitadas");  
 	    	
+	    	/*
 			if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
 				Process pianus = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + archivo3);
 			}
-         
+	    	 */
          } catch (IOException e1) {
  			// TODO Auto-generated catch block
  			e1.printStackTrace();

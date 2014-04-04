@@ -62,12 +62,6 @@ F12::
 return
 
 
-MButton::
-	Send ^2 
-
-return
-
-
 Escape::
 	ExitApp
 Return
