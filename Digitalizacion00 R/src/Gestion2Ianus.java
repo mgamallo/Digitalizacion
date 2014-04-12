@@ -86,7 +86,7 @@ public class Gestion2Ianus {
 		// minimizaVentana();
 
 		// activa ianus1
-		retardo(1000);
+		retardo(InicioIanus.retardoInterIanus);
 		//for(int i=0; i<1000;i++)
 		activaIanus(KeyEvent.VK_F7);
 		//fijaVentana();
@@ -208,7 +208,7 @@ public class Gestion2Ianus {
 			
 			robot.keyPress(KeyEvent.VK_ENTER);
 			robot.keyRelease(KeyEvent.VK_ENTER);
-			robot.delay(1000);
+			robot.delay(InicioIanus.retardoInterIanus);
 			
 			
 		} catch (AWTException e) {
@@ -227,7 +227,35 @@ public class Gestion2Ianus {
 							&& /*(!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG") && */ !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("ALG")){
 						 // JOptionPane.showMessageDialog(null, "En principio es el mismo paciente");
 						 //	InicioIanus.tipoSubida = 1;
-						 if(new GestionServicioPuntero().gestion()){
+					 	int nodoDocumentoActual = 0;
+					 	int nodoDocumentoAnterior = 0;
+					 	
+					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG")){
+					 		if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("pHmetría") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Manometría") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Enfermería endoscopias") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Endoscopia Digestiva")
+					 				){
+					 			nodoDocumentoActual = 1;
+					 		}
+					 		else 
+					 			nodoDocumentoActual = 2;
+					 	}
+					 	
+					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].servicio.equals("DIG")){
+					 		if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("pHmetría") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Manometría") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Enfermería endoscopias") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Endoscopia Digestiva")
+					 				){
+					 			nodoDocumentoAnterior = 1;
+					 		}
+					 		else 
+					 			nodoDocumentoAnterior = 2;
+					 	}
+					 	
+					 
+						 if(new GestionServicioPuntero().gestion() && (nodoDocumentoActual == nodoDocumentoAnterior)){
 							 Impresion impr = new Impresion();
 							 impr.imprime(InicioIanus.teclaAzul2.getText(),true,0);
 							 
@@ -287,10 +315,39 @@ public class Gestion2Ianus {
 			 if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].nhc.equals(InicioIanus.nhcIanus2)){
 				 
 				 if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].nhc.equals(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nhc)
-							&& (!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG") && !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("ALG"))){
+							/*&&  (!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG") */ && !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("ALG")){
 						 // JOptionPane.showMessageDialog(null, "En principio es el mismo paciente");
 						 //	InicioIanus.tipoSubida = 1;
-						 if(new GestionServicioPuntero().gestion()){
+					 
+					 	int nodoDocumentoActual = 0;
+					 	int nodoDocumentoAnterior = 0;
+					 	
+					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG")){
+					 		if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("pHmetría") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Manometría") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Enfermería endoscopias") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Endoscopia Digestiva")
+					 				){
+					 			nodoDocumentoActual = 1;
+					 		}
+					 		else 
+					 			nodoDocumentoActual = 2;
+					 	}
+					 	
+					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].servicio.equals("DIG")){
+					 		if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("pHmetría") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Manometría") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Enfermería endoscopias") &&
+					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Endoscopia Digestiva")
+					 				){
+					 			nodoDocumentoAnterior = 1;
+					 		}
+					 		else 
+					 			nodoDocumentoAnterior = 2;
+					 	}
+					 	
+					 
+						 if(new GestionServicioPuntero().gestion() && (nodoDocumentoActual == nodoDocumentoAnterior)){
 							 Impresion impr = new Impresion();
 							 impr.imprime(InicioIanus.teclaAzul2.getText(),true,0);
 							 

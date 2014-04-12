@@ -15,6 +15,8 @@ public class Inicio {
 	static WebBrowserIanus navegador1;
 	static WebBrowserIanus navegador2;
 	
+	static boolean avisochapuza = true;  // Para que aparezca el boton temporizador solo en navegador1
+	
 	static CoordenadasVentana coordenadasVentanas = new CoordenadasVentana();
 		
 	
@@ -25,6 +27,7 @@ public class Inicio {
 		NativeInterface.open(); 
 				
 			navegador1 = new WebBrowserIanus("Digitalización 2.0.0", new Color(255,222,173), true);
+			avisochapuza = false;
 			navegador2 = new WebBrowserIanus("Visor número 2", new Color(255,246,143), false);
 
 	        new InicioIanus();

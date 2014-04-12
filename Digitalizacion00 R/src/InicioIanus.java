@@ -161,8 +161,11 @@ public class InicioIanus extends JFrame {
 	static Gestion2Ianus gestion2ianus;
 	
 	static Point coordMinimizar = new Point(2003,8);
-	static int retardoAsociar = 400;
-	static int retardoAbrirVentanaPropiaAsociar = 800;
+	static int retardoAsociar = 400;				// Retardo para pulsar el boton de asociar
+	static int retardoPegarTitulo = 0;
+	static int retardoPulsarExaminar = 400;
+	static int retardoInterIanus = 1000;
+	static int retardoAbrirVentanaPropiaAsociar = 800;   // Retardo en dibujar la ventana de asociar
 	
 	static boolean nodoForzado = false;
 	
@@ -270,7 +273,8 @@ public class InicioIanus extends JFrame {
            	if(InicioIanus.numeroIanus == 2){
            		//Inicio.navegador2 = new WebBrowserIanus("Visor número 2", new Color(255,246,143));
            		Inicio.navegador2.frame.setBounds(Inicio.coordenadasVentanas.vPdf2);
-            	Inicio.navegador2.frame.setVisible(true);
+            	Inicio.navegador2.botonRetardos.setVisible(false);
+           		Inicio.navegador2.frame.setVisible(true);
            	}
            	
             ventanaE = new VentanaExplorador();

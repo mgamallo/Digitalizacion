@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;   
 import java.awt.event.ItemListener;   
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
   
 import javax.swing.BorderFactory;   
 import javax.swing.BoxLayout;
@@ -63,8 +65,12 @@ public class WebBrowserIanus {
 	 public JRadioButton radioButtonRapido = new JRadioButton("Rapido");
 	 public JRadioButton radioButtonExtremo = new JRadioButton("Extremo");
 	 
+	 public JButton botonResetIanus = new JButton("Reset Ianus");
+	 
 	 private JLabel etiquetaEnBlanco = new JLabel("                  |               ");
 	 private JLabel etiquetaEnBlancoII = new JLabel("              |            ");
+	 
+	 public JButton botonRetardos = new JButton("T");
 	 
 	 private boolean barraOCRvisible;
 	 
@@ -119,6 +125,7 @@ public class WebBrowserIanus {
 		                    InicioIanus.ocr2IanusAutomatico = true;
 		                    InicioIanus.botonInicioSubidaOCR.setEnabled(true);
 		                    InicioIanus.botonResetSubidaOCR.setEnabled(true);
+		                    botonResetIanus.setEnabled(true);
 		                }
 		                else{
 		                	InicioIanus.ocr2IanusAutomatico = false;
@@ -194,18 +201,21 @@ public class WebBrowserIanus {
 					}
 				});
 		    	
-		    	
+		    	botonRetardos.setSize(30,30);
+		    	botonRetardos.setBackground(Color.cyan);
+		    			    	
 		    	grupoVelocidadSubida.add(radioButtonManual);
 		    	grupoVelocidadSubida.add(radioButtonAuto);
 		    	grupoVelocidadSubida.add(radioButtonRapido);
 		    	//grupoVelocidadSubida.add(radioButtonExtremo);radioButtonExtremo.setEnabled(false);
 
+		    	ocrBotonesVelocidad.add(botonRetardos);
 		    	
 		    	ocrBotonesVelocidad.add(InicioIanus.check2IanusOCR);
 		    	ocrBotonesVelocidad.add(InicioIanus.botonInicioSubidaOCR);
 		    	ocrBotonesVelocidad.add(InicioIanus.botonResetSubidaOCR);
-		    	//ocrBotonesVelocidad.add(etiquetaEnBlanco);
-		    	ocrBotonesVelocidad.add(radioButtonManual);
+		    	// ocrBotonesVelocidad.add(etiquetaEnBlanco);
+		    	// ocrBotonesVelocidad.add(radioButtonManual);
 		    	ocrBotonesVelocidad.add(radioButtonAuto);
 		    	ocrBotonesVelocidad.add(radioButtonRapido);
 		    		//ocrBotonesVelocidad.add(radioButtonExtremo);
@@ -215,6 +225,7 @@ public class WebBrowserIanus {
 		    	ocrBotonesVelocidad.add(jslider);
 		    	ocrBotonesVelocidad.add(etiquetaRetardo);
 		    	// ocrBotonesVelocidad.setMaximumSize(new Dimension(400,20));
+		    	ocrBotonesVelocidad.add(botonResetIanus);
 		    	
 		    	RadioListener myListener = new RadioListener();
 		    	
@@ -313,6 +324,42 @@ public class WebBrowserIanus {
 					}
 				});
 			    
+			    
+			    botonResetIanus.setEnabled(false);
+			    botonResetIanus.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+				        if (InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
+				        	
+				        	
+				        	String cmd = "taskkill.exe /F /IM ianus.exe /T";
+				        	
+						    File archivoIanus = new File("cal\\ianus.exe");
+						    
+						    try {
+						    	Process hijo;
+						    	hijo = Runtime.getRuntime().exec(cmd);
+						    	hijo.waitFor();
+						    	
+						    	Thread.sleep(300);
+						    	
+								Process p = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + archivoIanus);
+								Thread.sleep(300);
+								
+								activaIanus(KeyEvent.VK_F5);
+								
+						    } catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (InterruptedException e){
+								e.printStackTrace();
+							}
+				        }
+					}
+				});
+			    
 			    ocrPanel.setBackground(new Color(255,222,173));
 			    
 			    TitledBorder borde = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder());
@@ -320,6 +367,35 @@ public class WebBrowserIanus {
 			    
 			    contentPane.add(ocrPanel, BorderLayout.NORTH);
 		    }
+
+		    if(InicioIanus.documentacion == 0 || InicioIanus.documentacion == 1){
+		    	if(!Inicio.avisochapuza){
+			    	botonRetardos.setBackground(Color.lightGray);
+			    	botonRetardos.setText("Temporizadores");
+			    	webBrowserPanel.add(botonRetardos, BorderLayout.SOUTH);
+			    	
+			    	/*
+			    	botonRetardos.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							// TODO Auto-generated method stub
+							new VentanaTemporizadores();
+						}
+					});
+			    	*/
+		    	}
+
+		    }
+		    
+		    botonRetardos.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					new VentanaTemporizadores();
+				}
+			});
 
 
 		    ocrPanel.setVisible(false);

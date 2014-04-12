@@ -71,6 +71,9 @@ public class RobotIanus {
 			}
 
 			
+			Robot ro = new Robot();
+			ro.delay(InicioIanus.retardoPegarTitulo);
+			
 			Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 
 			tamañoCarpeta = VentanaExplorador.listaPdfs.getModel().getSize();
@@ -181,6 +184,7 @@ public class RobotIanus {
 			robot.keyPress(KeyEvent.VK_V);
 			robot.keyRelease(KeyEvent.VK_V);
 			robot.keyRelease(KeyEvent.VK_CONTROL);
+			
 			robot.delay(250);
 
 			
@@ -207,7 +211,7 @@ public class RobotIanus {
 			
 			this.actualizaListaPdfsAbiertos();
 			
-				robot.delay(400);		
+				robot.delay(InicioIanus.retardoPulsarExaminar);		
 				robot.keyPress(KeyEvent.VK_CONTROL);
 				robot.keyPress(KeyEvent.VK_V);
 				robot.keyRelease(KeyEvent.VK_V);
