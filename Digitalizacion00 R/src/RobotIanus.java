@@ -49,7 +49,8 @@ public class RobotIanus {
 	//	Coordenadas boton aceptar subir
 	int acX = 0, acY = 0;
 	
-
+	// Coordenadas del ultimo aceptar
+	int aceptarManualX=1627, aceptarManualY=710; 
 	
 	//	Constructor
 	public void robotIanus(String cadena, int retardo, int pantallas, int tipoDocumento, String titulo,boolean asociarConBarraEspaciadora){
@@ -146,6 +147,7 @@ public class RobotIanus {
 					robot.keyPress(KeyEvent.VK_ENTER);
 					robot.keyRelease(KeyEvent.VK_ENTER);
 					robot.delay(100);
+					
 				}
 				
 				
@@ -224,14 +226,29 @@ public class RobotIanus {
 				robot.delay(100);
 				robot.keyPress(KeyEvent.VK_ENTER);
 				robot.keyRelease(KeyEvent.VK_ENTER);
-				robot.delay(100);
-	
+				
+				/*
+				if(InicioIanus.documentos[0].nhc.equals("Separador")){
+					if(InicioIanus.pdfSeleccionado == 2 || InicioIanus.pdfSeleccionado == 3)
+						robot.delay(2200);
+					else
+						robot.delay(InicioIanus.retardoAceptar);	
+				}else{
+					if(InicioIanus.pdfSeleccionado == 1 || InicioIanus.pdfSeleccionado == 2)
+						robot.delay(2200);
+					else
+						robot.delay(InicioIanus.retardoAceptar);
+				}
+				 */
 				
 			//	Acepta
+				
 				
 				robot.mouseMove(acX, acY); 
 				robot.mousePress(InputEvent.BUTTON1_MASK);
 				robot.mouseRelease(InputEvent.BUTTON1_MASK);
+				
+
 			
 			//	Acepta 2 automatico si está en modo s. c.
 				if(InicioIanus.turbo){
@@ -240,6 +257,9 @@ public class RobotIanus {
 					robot.keyRelease(KeyEvent.VK_ENTER);
 				}
 				
+			//	Aceptar manual
+				if(InicioIanus.numeroPantallas == 2)
+					robot.mouseMove(aceptarManualX, aceptarManualY);
 				
 				
 		}catch (AWTException e){

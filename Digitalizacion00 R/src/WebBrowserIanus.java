@@ -175,14 +175,17 @@ public class WebBrowserIanus {
 						// TODO Auto-generated method stub
 						if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
 							
+							/*
 							int i = JOptionPane.showConfirmDialog(null, "Tiene que haber 2 ianus abiertos en la \n pantalla de la" +
 									" derecha, y maximizados");
 							System.out.println(i);
 							if(i == 0){
+							*/
 								InicioIanus.gestion2ianus = new Gestion2Ianus();
 			        			InicioIanus.gestion2ianus.impresionInicial();
-			        			InicioIanus.gestion2ianusIniciada = true;			        			
-							}
+			        			InicioIanus.gestion2ianusIniciada = true;		
+			        			
+						//	}
 		        		
 		        		}
 					}

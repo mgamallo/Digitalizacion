@@ -1,6 +1,7 @@
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Robot;
@@ -19,6 +20,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -44,7 +46,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 
 	
 	JComboBox comboVentanas = new javax.swing.JComboBox();
-	
+		
     public VentanaBotonesDocMini() {
     	pantallas = InicioIanus.numeroPantallas;
         initComponents();
@@ -62,6 +64,9 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
     	jPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        
+        
+        
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         // jButton11 = new javax.swing.JButton();
@@ -84,6 +89,25 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
         
      //   this.setUndecorated(true);
 		 
+        InicioIanus.jButtonBusquedaAvanzada = new JButton("Busqueda Av.");
+        InicioIanus.jButtonBusquedaAvanzada.setMinimumSize(micro);
+        InicioIanus.jButtonBusquedaAvanzada.setMaximumSize(micro);
+        InicioIanus.jButtonBusquedaAvanzada.setPreferredSize(micro);
+        InicioIanus.jButtonBusquedaAvanzada.setBackground(new Color(27,255,240));
+        InicioIanus.jButtonBusquedaAvanzada.setEnabled(true);
+        InicioIanus.jButtonBusquedaAvanzada.setToolTipText("Pulsa el asterisco del bloque numérico");
+        InicioIanus.jButtonBusquedaAvanzada.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				// if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
+					new BusquedaAvanzada();
+		        // }
+			}
+		});
+
+        
         InicioIanus.jButtonTeclas = new javax.swing.JButton("Teclas Habilitadas");
         InicioIanus.jButtonTeclas.setMinimumSize(micro);
         InicioIanus.jButtonTeclas.setMaximumSize(micro);
@@ -99,6 +123,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
         jButtonAzules.setToolTipText("Editables: Pulsar sobre cualquier nombre normalizado, para añadirlo como nombre a los botones azules" );
         if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
         	jButtonAzules.setEnabled(false);
+        	InicioIanus.jButtonBusquedaAvanzada.setEnabled(true);
         }
         
         comboVentanas.addItem("Normal");
@@ -392,6 +417,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
         jPanel2.add(InicioIanus.jButtonTeclas);
         jPanel2.add(jButtonAzules);
         jPanel2.add(comboVentanas);
+        jPanel2.add(InicioIanus.jButtonBusquedaAvanzada);
    /*     jPanel2.add(jRBmini);
         jPanel2.add(jRBmicro1);
         jPanel2.add(jRBmicro2);
@@ -770,6 +796,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 	 		        		   objetosDocumentos[0]);
 	       			
 	       			InicioIanus.teclaAzul1.setText(seleccion.toString());
+	       			jPanel.requestFocus();
 	           	}
 	           	else{
 	           		imprime(InicioIanus.teclaAzul1.getText(),false,0);
@@ -780,6 +807,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 	       		introduceNHC();
 	       		jPanel.requestFocus();
 	       	}
+       		jPanel.requestFocus();
        	 }
 
 			@Override
@@ -838,6 +866,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
  	        		imprime(InicioIanus.teclaAzul2.getText(),false,0);
  	        		jPanel.requestFocus();
  	        	}
+        		 jPanel.requestFocus();
         	 }
 
 			@Override
@@ -872,7 +901,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 				// TODO Auto-generated method stub
 				if (InicioIanus.jButtonTeclas.getText().contains("Teclas Habilitadas")){
 					cerrarAutoHotKey(false);
-					jPanel1.requestFocus();
+					jPanel.requestFocus();
 				}else{
 					abrirAutoHotKey();
 					jPanel.requestFocus();
@@ -918,6 +947,8 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				
+				// System.out.println(e.getKeyText(e.getKeyCode()));
+				
 				if(!InicioIanus.suspensionTeclado){
 					switch (e.getKeyCode()){
 					case KeyEvent.VK_A: imprime(jButton1.getText(),false,0);break;
@@ -935,6 +966,11 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 					//case KeyEvent.VK_SPACE: alternarPdf();break;
 					//case KeyEvent.VK_F7: break;
 					
+					case KeyEvent.VK_MULTIPLY:
+						if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
+							new BusquedaAvanzada();
+				        }
+						break;
 					
 					case KeyEvent.VK_F1: 
 						//	Fuerza a que lo imprima como ingreso
@@ -1041,6 +1077,14 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 			//	if(e.getKeyCode() == KeyEvent.VK_A )
 					
 			//	 System.out.println("keyReleased="+KeyEvent.getKeyText(e.getKeyCode()));
+				jPanel.requestFocus();
+				try {
+					Robot robot = new Robot();
+					robot.delay(50);
+				} catch (AWTException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				jPanel.requestFocus();
 			}
 		};

@@ -19,23 +19,26 @@ public class VentanaTemporizadores extends JFrame{
 	JLabel labelAsociar = new JLabel("Retardo para pulsar el botón asociar      " + String.valueOf(InicioIanus.retardoAsociar));
 	JLabel labelTitulo = new JLabel("Retardo para pegar el título      " + String.valueOf(InicioIanus.retardoPegarTitulo));
 	JLabel labelExplorar = new JLabel("Retardo para pulsar el botón examinar      " + String.valueOf(InicioIanus.retardoPulsarExaminar));
+	JLabel labelAceptar = new JLabel("Retardo para pulsar el botón aceptar       " + String.valueOf(InicioIanus.retardoAceptar));
 	JLabel labelVacio = new JLabel(" ");
 	JLabel labelVacio1 = new JLabel(" ");
 	JLabel labelVacio2 = new JLabel(" ");
 	JLabel labelVacio3 = new JLabel(" ");
+	JLabel labelVacio4 = new JLabel(" ");
 	
 	JSlider sliderIanus = new JSlider(JSlider.HORIZONTAL,200,1200,InicioIanus.retardoInterIanus);
 	JSlider sliderAsociar = new JSlider(JSlider.HORIZONTAL,0,2000,InicioIanus.retardoAsociar);
 	JSlider sliderTitulo = new JSlider(JSlider.HORIZONTAL,0,1000,InicioIanus.retardoPegarTitulo);
 	JSlider sliderExplorar = new JSlider(JSlider.HORIZONTAL,0,1000,InicioIanus.retardoPulsarExaminar);
-	
+	JSlider sliderAceptar = new JSlider(JSlider.HORIZONTAL,0,1000,InicioIanus.retardoAceptar);
+
 	JPanel panel = new JPanel();
 	
 	public VentanaTemporizadores() {
 		// TODO Auto-generated constructor stub
 		
 		setTitle("Temporizadores");
-		setSize(500,260);
+		setSize(500,300);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
@@ -52,6 +55,9 @@ public class VentanaTemporizadores extends JFrame{
 		panel.add(labelVacio3);
 		panel.add(labelExplorar);
 		panel.add(sliderExplorar);
+		panel.add(labelVacio4);
+		panel.add(labelAceptar);
+		panel.add(sliderAceptar);
 		
 		
 	    sliderAsociar.setMinorTickSpacing(10);
@@ -114,6 +120,22 @@ public class VentanaTemporizadores extends JFrame{
 	 				// TODO Auto-generated method stub
 	 				InicioIanus.retardoPegarTitulo = (int) sliderTitulo.getValue();
 	 				labelTitulo.setText("Retardo para pegar el título      " + String.valueOf(InicioIanus.retardoPegarTitulo));
+	 				//System.out.println(InicioIanus.retardoAsociar);
+	 			}
+	 		});
+	    
+	    sliderAceptar.setMinorTickSpacing(10);
+	    sliderAceptar.setMajorTickSpacing(500);
+	    // sliderTitulo.setPaintLabels(true);
+	    // sliderTitulo.setPaintTicks(true);
+	    sliderAceptar.setBackground(Color.white);
+		
+	    sliderAceptar.addChangeListener(new ChangeListener() {
+	 			@Override
+	 			public void stateChanged(ChangeEvent arg0) {
+	 				// TODO Auto-generated method stub
+	 				InicioIanus.retardoAceptar = (int) sliderAceptar.getValue();
+	 				labelAceptar.setText("Retardo para pulsar el botón aceptar      " + String.valueOf(InicioIanus.retardoAceptar));
 	 				//System.out.println(InicioIanus.retardoAsociar);
 	 			}
 	 		});

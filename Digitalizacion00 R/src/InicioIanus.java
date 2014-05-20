@@ -120,6 +120,7 @@ public class InicioIanus extends JFrame {
 	
 	static JButton jBultimoNombreSubido;			//	Para sincronizar el nombre del boton de ultimo nombre subido
 	static JButton jButtonTeclas;					//	Para avisar cuando el AutoHotKey está habilitado
+	static JButton jButtonBusquedaAvanzada;
 	static boolean teclasAzulesEditables = false;	//	Para facilitar la edicion de los botones azules
 	static JButton teclaAzul1;
 	static JButton teclaAzul2;
@@ -164,9 +165,9 @@ public class InicioIanus extends JFrame {
 	static int retardoAsociar = 400;				// Retardo para pulsar el boton de asociar
 	static int retardoPegarTitulo = 0;
 	static int retardoPulsarExaminar = 400;
-	static int retardoInterIanus = 1000;
+	static int retardoInterIanus = 300;
 	static int retardoAbrirVentanaPropiaAsociar = 800;   // Retardo en dibujar la ventana de asociar
-	
+	static int retardoAceptar = 150;
 	static boolean nodoForzado = false;
 	
 	/*********************************************************************************/
