@@ -329,7 +329,7 @@ public class InterFazTabla extends javax.swing.JFrame {
     //            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                      //   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                     .addComponent(jScrollPane2)))
@@ -432,16 +432,16 @@ public class InterFazTabla extends javax.swing.JFrame {
         if(autocopiar && !InicioIanus.teclasAzulesEditables){        
         	RobotIanus pruebaRobot = new RobotIanus();
         	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("DIG") && 
-    				(listaHabituales.getSelectedValue().toString().contains("Enfermería endoscopias") ||
-					 listaHabituales.getSelectedValue().toString().contains("Endoscopia Digestiva") ||
-					 listaHabituales.getSelectedValue().toString().contains("Manometría") ||
-					 listaHabituales.getSelectedValue().toString().contains("pHmetría")	)){
+    				(listaHabituales.getSelectedValue().toString().contains(InicioIanus.ENFERMERIA_ENDOSCOPIAS) ||
+					 listaHabituales.getSelectedValue().toString().contains(InicioIanus.ENDOSCOPIA_DIGESTIVA) ||
+					 listaHabituales.getSelectedValue().toString().contains(InicioIanus.MANOMETRIA) ||
+					 listaHabituales.getSelectedValue().toString().contains(InicioIanus.PHMETRIA)	)){
   
         			InicioIanus.tipoDocAsubir = 1; //	Subir enfermería de dig como ingreso                   
         	}
 
         	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("HOSP") 		&& 
-        			listaHabituales.getSelectedValue().toString().contains("Consentimento informado")){
+        			listaHabituales.getSelectedValue().toString().contains(InicioIanus.CONSENTIMIENTO)){
 	        				
         			InicioIanus.tipoDocAsubir = 2;
 	        
@@ -590,17 +590,17 @@ public class InterFazTabla extends javax.swing.JFrame {
         if(autocopiar && !InicioIanus.teclasAzulesEditables){        
         	RobotIanus pruebaRobot = new RobotIanus();
         	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("DIG") && 
-        				(listaHabituales2.getSelectedValue().toString().contains("Enfermería endoscopias") ||
-        				 listaHabituales2.getSelectedValue().toString().contains("Endoscopia Digestiva") ||
-    					 listaHabituales2.getSelectedValue().toString().contains("Manometría") ||
-    					 listaHabituales2.getSelectedValue().toString().contains("pHmetría")	)){
+        				(listaHabituales2.getSelectedValue().toString().contains(InicioIanus.ENFERMERIA_ENDOSCOPIAS) ||
+        				 listaHabituales2.getSelectedValue().toString().contains(InicioIanus.ENDOSCOPIA_DIGESTIVA) ||
+        				 listaHabituales2.getSelectedValue().toString().contains(InicioIanus.MANOMETRIA) ||
+        				 listaHabituales2.getSelectedValue().toString().contains(InicioIanus.PHMETRIA)	)){
         		
         				InicioIanus.tipoDocAsubir = 1; //	Subir enfermería de dig como ingreso                  
         	
         	}
         	
         	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("HOSP") 		&& 
-        			listaHabituales2.getSelectedValue().toString().contains("Consentimento informado")){
+        			listaHabituales2.getSelectedValue().toString().contains(InicioIanus.CONSENTIMIENTO)){
 	        				
         			InicioIanus.tipoDocAsubir = 2;
 	        
@@ -741,17 +741,17 @@ public class InterFazTabla extends javax.swing.JFrame {
         if(autocopiar && !InicioIanus.teclasAzulesEditables){
         	RobotIanus pruebaRobot = new RobotIanus();
         	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("DIG") && 
-        			(listaServicio.getSelectedValue().toString().contains("Enfermería endoscopias") ||
-       				 listaServicio.getSelectedValue().toString().contains("Endoscopia Digestiva") ||
-        			 listaServicio.getSelectedValue().toString().contains("Manometría") ||
-        			 listaServicio.getSelectedValue().toString().contains("pHmetría")	)){
+        			(listaServicio.getSelectedValue().toString().contains(InicioIanus.ENFERMERIA_ENDOSCOPIAS) ||
+           			 listaServicio.getSelectedValue().toString().contains(InicioIanus.ENDOSCOPIA_DIGESTIVA) ||
+           			 listaServicio.getSelectedValue().toString().contains(InicioIanus.MANOMETRIA) ||
+           			 listaServicio.getSelectedValue().toString().contains(InicioIanus.PHMETRIA)	)){
         		
         			InicioIanus.tipoDocAsubir = 1; //	Subir enfermería de dig como ingreso                 
         	
         	}
         	
         	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("HOSP") 		&& 
-        			listaServicio.getSelectedValue().toString().contains("Consentimento informado")){
+        			listaServicio.getSelectedValue().toString().contains(InicioIanus.CONSENTIMIENTO)){
 	        				
         			InicioIanus.tipoDocAsubir = 2;
 	        

@@ -38,6 +38,15 @@ public class InicioIanus extends JFrame {
 	static final String RUTAURGB ="H:/DIGITALIZACIÓN/01 INFORMES URG (Colectiva)";	
 	static final String RUTAPC = "c:/ianus/ianus.txt";                                  // Donde se almacena el nombre del pc
 	
+	static final String CONSENTIMIENTO = "Consentimento informado";
+	static final String EKG = "ECG";
+	static final String LISTAESPERA = "Folla inclusión LE";
+	static final String MANOMETRIA = "Manometría";
+	static final String PHMETRIA = "Phmetría";
+	static final String ENFERMERIA_ENDOSCOPIAS = "Enfermería endoscopias";
+	static final String ENDOSCOPIA_DIGESTIVA = "Endoscopia Digestiva";
+	
+	
 	static String nombrePc;
 	static boolean ianus2pantallas = false;       	//	Si subimos con dos ianus, por defecto los ianus en una sola pantalla
 	static Point coordAsociar = new Point(0,0);
@@ -163,7 +172,7 @@ public class InicioIanus extends JFrame {
 	
 	static Point coordMinimizar = new Point(2003,8);
 	static int retardoAsociar = 400;				// Retardo para pulsar el boton de asociar
-	static int retardoPegarTitulo = 0;
+	static int retardoPegarTitulo = 0;			// Retardo para esperar a que dibuje la ventana asociar
 	static int retardoPulsarExaminar = 400;
 	static int retardoInterIanus = 300;
 	static int retardoAbrirVentanaPropiaAsociar = 800;   // Retardo en dibujar la ventana de asociar

@@ -74,7 +74,7 @@ public class WebBrowserIanus {
 	 
 	 private boolean barraOCRvisible;
 	 
-	 private JSlider jslider = new JSlider(JSlider.HORIZONTAL, 0, 2000, InicioIanus.retardoAsociar);
+	 private JSlider jslider = new JSlider(JSlider.HORIZONTAL, 0, 3000, InicioIanus.retardoAsociar);
 	 private JLabel etiquetaRetardo = new JLabel(String.valueOf(InicioIanus.retardoAsociar));
 	
 	 public JComponent createContent() {  
@@ -264,8 +264,8 @@ public class WebBrowserIanus {
 			    ocrPanel.add(ocrBotonesPanel,BorderLayout.CENTER);
 			    ocrPanel.add(ocrControlPanel,BorderLayout.WEST);
 			    
-			    jslider.setMinorTickSpacing(10);
-			    jslider.setMajorTickSpacing(500);
+			    jslider.setMinorTickSpacing(50);
+			    jslider.setMajorTickSpacing(1000);
 			    jslider.setPaintLabels(true);
 			    jslider.setPaintTicks(true);
 			    jslider.addChangeListener(new ChangeListener() {

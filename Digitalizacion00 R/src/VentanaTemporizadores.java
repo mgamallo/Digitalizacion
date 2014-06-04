@@ -17,6 +17,7 @@ public class VentanaTemporizadores extends JFrame{
 	
 	JLabel labelIanus = new JLabel("Retardo para cambiar entre ianus      " + String.valueOf(InicioIanus.retardoInterIanus));
 	JLabel labelAsociar = new JLabel("Retardo para pulsar el botón asociar      " + String.valueOf(InicioIanus.retardoAsociar));
+	JLabel labelVentana = new JLabel("RETARDO ESPERAR A QUE SE DIBUJE LA VENTANA DE ASOCIAR   " + String.valueOf(InicioIanus.retardoAbrirVentanaPropiaAsociar));
 	JLabel labelTitulo = new JLabel("Retardo para pegar el título      " + String.valueOf(InicioIanus.retardoPegarTitulo));
 	JLabel labelExplorar = new JLabel("Retardo para pulsar el botón examinar      " + String.valueOf(InicioIanus.retardoPulsarExaminar));
 	JLabel labelAceptar = new JLabel("Retardo para pulsar el botón aceptar       " + String.valueOf(InicioIanus.retardoAceptar));
@@ -27,7 +28,8 @@ public class VentanaTemporizadores extends JFrame{
 	JLabel labelVacio4 = new JLabel(" ");
 	
 	JSlider sliderIanus = new JSlider(JSlider.HORIZONTAL,200,1200,InicioIanus.retardoInterIanus);
-	JSlider sliderAsociar = new JSlider(JSlider.HORIZONTAL,0,2000,InicioIanus.retardoAsociar);
+	JSlider sliderAsociar = new JSlider(JSlider.HORIZONTAL,0,3000,InicioIanus.retardoAsociar);
+	JSlider sliderDibujarVentana = new JSlider(JSlider.HORIZONTAL,0,3000,InicioIanus.retardoAsociar);
 	JSlider sliderTitulo = new JSlider(JSlider.HORIZONTAL,0,1000,InicioIanus.retardoPegarTitulo);
 	JSlider sliderExplorar = new JSlider(JSlider.HORIZONTAL,0,1000,InicioIanus.retardoPulsarExaminar);
 	JSlider sliderAceptar = new JSlider(JSlider.HORIZONTAL,0,1000,InicioIanus.retardoAceptar);
@@ -44,8 +46,10 @@ public class VentanaTemporizadores extends JFrame{
 		
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(labelVacio);
-		panel.add(labelIanus);
-		panel.add(sliderIanus);
+		panel.add(labelVentana);
+		// panel.add(labelIanus);
+		// panel.add(sliderIanus);
+		panel.add(sliderDibujarVentana);
 		panel.add(labelVacio1);
 		panel.add(labelAsociar);
 		panel.add(sliderAsociar);
@@ -76,6 +80,24 @@ public class VentanaTemporizadores extends JFrame{
 			}
 		});
 		
+	    sliderDibujarVentana.setMinorTickSpacing(10);
+	    sliderDibujarVentana.setMajorTickSpacing(500);
+	    // sliderAsociar.setPaintLabels(true);
+	    // sliderAsociar.setPaintTicks(true);
+	    sliderDibujarVentana.setBackground(Color.white);
+	    
+	    sliderDibujarVentana.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				// TODO Auto-generated method stub
+				InicioIanus.retardoAbrirVentanaPropiaAsociar = (int) sliderDibujarVentana.getValue();
+				labelVentana.setText("RETARDO ESPERAR A QUE SE DIBUJE LA VENTANA DE ASOCIAR   " + String.valueOf(InicioIanus.retardoAbrirVentanaPropiaAsociar));
+				//System.out.println(InicioIanus.retardoAsociar);
+			}
+		});
+	    
+	    
+	    
 	    sliderIanus.setMinorTickSpacing(10);
 	    sliderIanus.setMajorTickSpacing(500);
 	    // sliderIanus.setPaintLabels(true);

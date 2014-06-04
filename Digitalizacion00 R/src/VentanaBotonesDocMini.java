@@ -431,9 +431,9 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
         String b1, b2, b3;
         
         if(InicioIanus.documentacion != 0 && InicioIanus.documentacion != 3){
-          	b1 = "Inclusion l.e.";
+          	b1 = InicioIanus.LISTAESPERA;
             b2 = "Interconsulta";
-            b3 = "Consentimento informado";
+            b3 = InicioIanus.CONSENTIMIENTO;
         }else{
         	b1 = "Informe urg.";
             b2 = "Enfermería urg.";
@@ -441,7 +441,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
         }
         
         String b4 = "Último doc.";
-        String b5 = "EKG";
+        String b5 = InicioIanus.EKG;
         String b6 = "Eco";
         
         String b7;
@@ -952,13 +952,40 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 				if(!InicioIanus.suspensionTeclado){
 					switch (e.getKeyCode()){
 					case KeyEvent.VK_A: imprime(jButton1.getText(),false,0);break;
-					// case KeyEvent.VK_F1:imprime(jButton1.getText(),false,0);break;
+
 					case KeyEvent.VK_S: imprime(jButton9.getText(),false,0);break;
-					// case KeyEvent.VK_F2:imprime(jButton9.getText(),false,0);break;
+
 					case KeyEvent.VK_D: imprime(jButton10.getText(),false,0);break;
-					// case KeyEvent.VK_F3:imprime(jButton10.getText(),false,0);break;
+
 					case KeyEvent.VK_F: imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0);break;
-					// case KeyEvent.VK_F4:imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0);break;
+					
+					
+					case KeyEvent.VK_F4:imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0);break;
+					
+					case KeyEvent.VK_F5:
+						if(!(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
+							imprime(jButton12.getText(),false,0);
+				        }
+						break;
+						
+					case KeyEvent.VK_F6:
+						if(!(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
+							imprime(jButton13.getText(),false,0);
+				        }
+						break;
+						
+					case KeyEvent.VK_F7:
+						if(!(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
+							imprime(InicioIanus.teclaAzul1.getText(),false,0);
+				        }
+						break;
+						
+					case KeyEvent.VK_F8:
+						if(!(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
+							imprime(InicioIanus.teclaAzul2.getText(),false,0);
+				        }
+						break;
+					
 					case KeyEvent.VK_Z: imprime(jButton12.getText(),false,0);break;
 					// case KeyEvent.VK_F5:imprime(jButton12.getText(),false,0);break;
 					case KeyEvent.VK_X: imprime(jButton13.getText(),false,0);break;
@@ -979,6 +1006,9 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 							imprime(InicioIanus.teclaAzul2.getText(), false, 1);
 							InicioIanus.nodoForzado = false;
 						}
+						else{
+							imprime(jButton1.getText(),false,0);
+						}
 						break;
 					case KeyEvent.VK_F2: 
 						//	Fuerza a que lo imprima como consulta
@@ -987,6 +1017,9 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 							imprime(InicioIanus.teclaAzul2.getText(), false, 2);
 							InicioIanus.nodoForzado = false;
 						}
+						else{
+							imprime(jButton9.getText(),false,0);
+						}
 						break;
 					case KeyEvent.VK_F3: 
 						//	Fuerza a que lo imprima como cia
@@ -994,6 +1027,9 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 							InicioIanus.nodoForzado = true;
 							imprime(InicioIanus.teclaAzul2.getText(), false, 3);
 							InicioIanus.nodoForzado = false;
+						}
+						else{
+							imprime(jButton10.getText(),false,0);
 						}
 						break;
 					

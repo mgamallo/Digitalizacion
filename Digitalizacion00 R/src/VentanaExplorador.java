@@ -851,6 +851,7 @@ public class VentanaExplorador extends javax.swing.JFrame {
   				
   				cerrarAutoHotKey();
   				
+  				
   				Inicio.navegador1.webBrowser.navigate("");
   	  			Inicio.navegador1.webBrowser.setVisible(false);
   	  			
@@ -864,6 +865,7 @@ public class VentanaExplorador extends javax.swing.JFrame {
   				if(seleccion.toString() != null){
   					Object comentario = JOptionPane.showInputDialog(null,"Escribe un breve comentario sobre porqué se aparta el documento","Anotación",JOptionPane.QUESTION_MESSAGE);
   					if(comentario.toString() != null){
+  						
   						
   						CerrarTodo cerrar = new CerrarTodo();
   						cerrar.closePdf();

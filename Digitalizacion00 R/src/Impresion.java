@@ -30,16 +30,16 @@ public class Impresion {
 			
 			// Subir enfermería de dig como ingreso  
 		    if(InicioIanus.comboServicios.getSelectedItem().toString().contains("DIG") && 
-					(cadena.contains("Enfermería endoscopias") ||
-			   				 cadena.contains("Endoscopia Digestiva") ||
-			   				 cadena.contains("Manometría") ||
-			   				cadena.contains("pHmetría"))){
+					(cadena.contains(InicioIanus.ENFERMERIA_ENDOSCOPIAS) ||
+			   				 cadena.contains(InicioIanus.ENDOSCOPIA_DIGESTIVA) ||
+			   				 cadena.contains(InicioIanus.MANOMETRIA) ||
+			   				cadena.contains(InicioIanus.PHMETRIA))){
 			       	 
 			        	InicioIanus.tipoDocAsubir = 1; //
 		    }
 		    
 		    if(InicioIanus.comboServicios.getSelectedItem().toString().contains("HOSP") 		&& 
-		    		cadena.contains("Consentimento informado")){
+		    		cadena.contains(InicioIanus.CONSENTIMIENTO)){
 	        				InicioIanus.tipoDocAsubir = 2;
 	        
 	        }

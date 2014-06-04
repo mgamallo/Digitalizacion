@@ -115,10 +115,21 @@ public class RobotIanus {
 			
 			InicioIanus.suspensionTeclado = true;
 			
-			if(InicioIanus.conjuntoTitulos.contains(cadena) || cadena.contains("Doc. anulado")){
+			if(/*(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3) && */
+					(InicioIanus.conjuntoTitulos.contains(cadena) || cadena.contains("Doc. anulado"))){
 				// System.out.println("Debería imprimir el título");
 				
 				titulo = cadena;
+				
+				/*** una mini chapuza */
+				
+				robot.mouseMove(x1, y1);
+				//	System.out.println(x1 + ", " + y1 + " Pega nombre normalizado");
+					robot.delay(75);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					robot.delay(100);
+				
 				
 				if(titulo.length() != 0){
 					// System.out.println("Llegamos a este bucle");
@@ -129,10 +140,11 @@ public class RobotIanus {
 					robot.mouseRelease(InputEvent.BUTTON1_MASK);
 					robot.delay(100);
 					
+					
 					if(!cadena.contains("Doc. anulado")){
-						for(int k = 0; k< titulo.length() && k < 5;k++){
+						for(int k = 0; k< titulo.length() && k < 7;k++){
 							getChar(titulo.charAt(k));
-							robot.delay(70);
+							robot.delay(10);
 							// System.out.println(titulo.charAt(k));
 						}
 					}
@@ -148,6 +160,31 @@ public class RobotIanus {
 					robot.keyRelease(KeyEvent.VK_ENTER);
 					robot.delay(100);
 					
+					/*
+					if(cadena.contains("s")&& !cadena.contains("Doc. anulado")){
+						robot.mouseMove(x1, y1-27);
+						
+						robot.delay(200);
+						robot.mousePress(InputEvent.BUTTON1_MASK);
+						robot.mouseRelease(InputEvent.BUTTON1_MASK);
+						robot.delay(100);
+						
+						for(int k = 0; k< titulo.length() && k < 7;k++){
+							getChar(titulo.charAt(k));
+							robot.delay(10);
+							// System.out.println(titulo.charAt(k));
+						}
+						robot.delay(200);
+						robot.keyPress(KeyEvent.VK_ENTER);
+						robot.keyRelease(KeyEvent.VK_ENTER);
+						robot.delay(100);
+					}
+					else{
+						robot.delay(100);
+						robot.mouseMove(x1,y1-13);
+						System.out.println("anulando");
+					}
+					*/
 				}
 				
 				
@@ -370,10 +407,42 @@ public class RobotIanus {
 				robot.keyPress(codigo);
 			}
 			else{
-				robot.keyPress(codigo);
-				robot.keyRelease(codigo);
-				// Duda... hace falta el keyrelease??
-			}
+				
+				switch (codigo) {
+				case KeyEvent.VK_SPACE:
+					imprimeAscii(32);
+					break;
+				case KeyEvent.VK_A:
+					imprimeAscii(97);
+					break;
+				case KeyEvent.VK_S:
+					imprimeAscii(115);
+					break;
+				case KeyEvent.VK_D:
+					imprimeAscii(100);
+					break;
+				case KeyEvent.VK_F:
+					imprimeAscii(102);
+					break;
+				case KeyEvent.VK_Z:
+					imprimeAscii(122);
+					break;
+				case KeyEvent.VK_X:
+					imprimeAscii(120);
+					break;
+				case KeyEvent.VK_C:
+					imprimeAscii(99);
+					break;
+				case KeyEvent.VK_V:
+					imprimeAscii(118);
+					break;
+
+				default:
+					robot.keyPress(codigo);
+					robot.keyRelease(codigo);
+					break;
+				}
+							}
 					
 		}catch (AWTException e){
 			e.printStackTrace();
@@ -451,6 +520,7 @@ public class RobotIanus {
 				robot.keyRelease(KeyEvent.VK_ENTER);					
 			}
 			
+			System.out.println("Retardo para esperar a que abra la ventana");
 			robot.delay(retardoAbrirVentanaPropiaAsociar);
 		}catch (AWTException e){
 			e.printStackTrace();
@@ -552,5 +622,62 @@ public class RobotIanus {
 		this.imprimeChar(inverso,codigo, acento);
 		
 	}
+	
+	public static void imprimeAscii(int codigoAscii){
+		String digitos = String.valueOf(codigoAscii);
+		char dig[] = digitos.toCharArray();
+		
+		try {
+			Robot robot = new Robot();
+			
+			robot.keyPress(KeyEvent.VK_ALT);
+			for(int i=0;i<dig.length;i++){
+				int teclaNumerica = 0;
+				switch (dig[i]) {
+				case '0':
+					teclaNumerica = KeyEvent.VK_NUMPAD0;
+					break;
+				case '1':
+					teclaNumerica = KeyEvent.VK_NUMPAD1;
+					break;
+				case '2':
+					teclaNumerica = KeyEvent.VK_NUMPAD2;
+					break;
+				case '3':
+					teclaNumerica = KeyEvent.VK_NUMPAD3;
+					break;
+				case '4':
+					teclaNumerica = KeyEvent.VK_NUMPAD4;
+					break;
+				case '5':
+					teclaNumerica = KeyEvent.VK_NUMPAD5;
+					break;
+				case '6':
+					teclaNumerica = KeyEvent.VK_NUMPAD6;
+					break;
+				case '7':
+					teclaNumerica = KeyEvent.VK_NUMPAD7;
+					break;
+				case '8':
+					teclaNumerica = KeyEvent.VK_NUMPAD8;
+					break;
+				case '9':
+					teclaNumerica = KeyEvent.VK_NUMPAD9;
+					break;
+				}
+				robot.keyPress(teclaNumerica);
+				robot.keyRelease(teclaNumerica);
+			}
+			
+			robot.keyRelease(KeyEvent.VK_ALT);
+			robot.delay(20);
+			
+			
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 }

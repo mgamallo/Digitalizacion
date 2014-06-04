@@ -190,7 +190,7 @@ public class FicheroTXT {
 		String cadenaFecha = "";
 		cadenaFecha += año;
 		int mes = fecha.get(Calendar.MONTH);
-		cadenaFecha += mes;
+		cadenaFecha += ++mes;
 		int dia = fecha.get(Calendar.DATE);
 		
 		if(dia<10){
