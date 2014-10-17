@@ -101,6 +101,11 @@ public class LeerExcel {
                         	String documento = hoja.getCell(numColumnas,fila).getContents().toString();
                         	if(documento.equals("S")){
                         		InicioIanus.conjuntoTitulos.add(hoja.getCell(0,fila).getContents().toString());
+                        		
+                        		Alias alias = new Alias();
+                        		alias.titulo = hoja.getCell(0,fila).getContents().toString();
+                        		alias.alias = hoja.getCell(numColumnas+1,fila).getContents().toString();
+                        		InicioIanus.aliasTitulos.add(alias);
                         	}
                         }
                         
@@ -231,7 +236,7 @@ public class LeerExcel {
                         //	Leer cuadro de coordenadas del Ianus
                         hoja = archivoExcel.getSheet(5);
                         int numFilasC = hoja.getRows();
-                        int numColumC = hoja.getColumns();
+                        int numColumC = 5; //hoja.getColumns();
                         
                         tablaCoordenadasIanus = new Object[numFilasC][numColumC];
                         for (int fila=0;fila<numFilasC;fila++){
@@ -518,17 +523,17 @@ public class LeerExcel {
      
      
      int[][] getCoordenadasIanus(int auxPantallas){
-    	 int tabla[][] = new int[auxPantallas][3];     // Vale 6 para 1 pantalla, 12 para 2 pantallas
+    	 int tabla[][] = new int[auxPantallas][4];     // Vale 6 para 1 pantalla, 12 para 2 pantallas
     	 if(InicioIanus.numeroPantallas == 2 && !InicioIanus.nombrePc.equals("hpchpMAHC14p")){
     		// System.out.println("2 pantallas");
     		 for(int i=0;i<6;i++){
-    			 for(int j=0;j<3;j++){
+    			 for(int j=0;j<4;j++){
     				 tabla[i][j] = Integer.parseInt(tablaCoordenadasIanus[8+i][j+1].toString());
     		//		 System.out.print(tabla[i][j] + "\t");
     			 }
     		 }
     		 for(int i=0;i<6;i++){   			 
-       			 for(int j=0;j<3;j++){
+       			 for(int j=0;j<4;j++){
     				 tabla[i+6][j] = Integer.parseInt(tablaCoordenadasIanus[15+i][j+1].toString());
     		 //	System.out.println("");
        			 }
@@ -536,7 +541,7 @@ public class LeerExcel {
      	 }else if(InicioIanus.numeroPantallas == 1){
     		// System.out.println("1 pantallas");
      	   	 for(int i=0;i<6;i++){
-     	   		 for(int j=0;j<3;j++){
+     	   		 for(int j=0;j<4;j++){
      	   			 tabla[i][j] = Integer.parseInt(tablaCoordenadasIanus[1+i][j+1].toString());
      	   		//	 System.out.print(tabla[i][j] + "\t");
      	   		 }
@@ -545,13 +550,13 @@ public class LeerExcel {
      	 }else if(InicioIanus.nombrePc.equals("hpchpMAHC14p")){
      		// System.out.println("2 colosos");
     		 for(int i=0;i<6;i++){
-    			 for(int j=0;j<3;j++){
+    			 for(int j=0;j<4;j++){
     				 tabla[i][j] = Integer.parseInt(tablaCoordenadasIanus[22+i][j+1].toString());
     		//		 System.out.print(tabla[i][j] + "\t");
     			 }
     		 }
     		 for(int i=0;i<6;i++){   			 
-       			 for(int j=0;j<3;j++){
+       			 for(int j=0;j<4;j++){
     				 tabla[i+6][j] = Integer.parseInt(tablaCoordenadasIanus[15+i][j+1].toString());
     		 //	System.out.println("");
        			 }

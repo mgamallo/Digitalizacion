@@ -533,42 +533,44 @@ public class VentanaExplorador extends javax.swing.JFrame {
  									}
  								};
  								
- 								File recargar = new File(ruta);
- 								File[] nuevosPdfs = recargar.listFiles(filtro);
- 								int tamaño = nuevosPdfs.length;
- 								
- 								InicioIanus.rutaCompletaPdfs = new String[tamaño];
- 								
- 								modelo = new DefaultListModel();
- 								objetoPuente = new Object[nuevosPdfs.length];
- 								InicioIanus.documentos = new DocumentoProp[nuevosPdfs.length];
- 																
- 								for(int k=0;k<nuevosPdfs.length;k++){
- 									objetoPuente[k] = nuevosPdfs[k].getName();
- 									//modelo.addElement(nuevosPdfs[k].getName());
- 									InicioIanus.rutaCompletaPdfs[k] = nuevosPdfs[k].getAbsolutePath().toString();
- 									String nombreFormateado = "";
- 									if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
- 	            						InicioIanus.documentos[k] = new DocumentoProp(InicioIanus.rutaCompletaPdfs[k]);
+ 								if(InicioIanus.documentacion == 0 || InicioIanus.documentacion == 1){
+ 	 								File recargar = new File(ruta);
+ 	 								File[] nuevosPdfs = recargar.listFiles(filtro);
+ 	 								int tamaño = nuevosPdfs.length;
+ 	 								
+ 	 								InicioIanus.rutaCompletaPdfs = new String[tamaño];
+ 	 								
+ 	 								modelo = new DefaultListModel();
+ 	 								objetoPuente = new Object[nuevosPdfs.length];
+ 	 								InicioIanus.documentos = new DocumentoProp[nuevosPdfs.length];
+ 	 																
+ 	 								for(int k=0;k<nuevosPdfs.length;k++){
+ 	 									objetoPuente[k] = nuevosPdfs[k].getName();
+ 	 									//modelo.addElement(nuevosPdfs[k].getName());
+ 	 									InicioIanus.rutaCompletaPdfs[k] = nuevosPdfs[k].getAbsolutePath().toString();
+ 	 									String nombreFormateado = "";
+ 	 									if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
+ 	 	            						InicioIanus.documentos[k] = new DocumentoProp(InicioIanus.rutaCompletaPdfs[k]);
+ 	 									
+ 	 	            						String nhc = InicioIanus.documentos[k].nhc;
+ 	 	        							String espaciosEnBlanco = "";
+ 	 	        							int numDigitos = 9 - nhc.length();
+ 	 	        							for(int z = 0;z<numDigitos;z++){
+ 	 	        								espaciosEnBlanco += "_";
+ 	 	        							}
+ 	 	        							nhc = espaciosEnBlanco + nhc;
+ 	 	        							nombreFormateado = nuevosPdfs[k].getName().substring(0, 4) + " " + nhc + "   " +
+ 	 	        									InicioIanus.documentos[k].nombreNormalizado;
+ 	 	        							modelo.addElement(nombreFormateado);
+ 	 									}
+ 	 									else{
+ 	 										modelo.addElement(nuevosPdfs[k].getName());
+ 	 									}
+ 	 								}
+ 	 								listaPdfs.setModel(modelo);
  									
- 	            						String nhc = InicioIanus.documentos[k].nhc;
- 	        							String espaciosEnBlanco = "";
- 	        							int numDigitos = 9 - nhc.length();
- 	        							for(int z = 0;z<numDigitos;z++){
- 	        								espaciosEnBlanco += "_";
- 	        							}
- 	        							nhc = espaciosEnBlanco + nhc;
- 	        							nombreFormateado = nuevosPdfs[k].getName().substring(0, 4) + " " + nhc + "   " +
- 	        									InicioIanus.documentos[k].nombreNormalizado;
- 	        							modelo.addElement(nombreFormateado);
- 									}
- 									else{
- 										modelo.addElement(nuevosPdfs[k].getName());
- 									}
  								}
- 								listaPdfs.setModel(modelo);
  							}
- 							
  						}
  					}
 					
@@ -899,40 +901,44 @@ public class VentanaExplorador extends javax.swing.JFrame {
   									}
   								};
   								
-  								File recargar = new File(ruta);
-  								File[] nuevosPdfs = recargar.listFiles(filtro);
-  								int tamaño = nuevosPdfs.length;
+  								if(InicioIanus.documentacion == 0 || InicioIanus.documentacion == 1){
+  									File recargar = new File(ruta);
+  	  								File[] nuevosPdfs = recargar.listFiles(filtro);
+  	  								int tamaño = nuevosPdfs.length;
+  	  								
+  	  								InicioIanus.rutaCompletaPdfs = new String[tamaño];
+  	  								
+  	  								modelo = new DefaultListModel();
+  	  								objetoPuente = new Object[nuevosPdfs.length];
+  	  								InicioIanus.documentos = new DocumentoProp[nuevosPdfs.length];
+  	  									
+  	  								for(int k=0;k<nuevosPdfs.length;k++){
+  	 									objetoPuente[k] = nuevosPdfs[k].getName();
+  	 									//modelo.addElement(nuevosPdfs[k].getName());
+  	 									InicioIanus.rutaCompletaPdfs[k] = nuevosPdfs[k].getAbsolutePath().toString();
+  	 									String nombreFormateado = "";
+  	 									if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
+  	 	            						InicioIanus.documentos[k] = new DocumentoProp(InicioIanus.rutaCompletaPdfs[k]);
+  	 									
+  	 	            						String nhc = InicioIanus.documentos[k].nhc;
+  	 	        							String espaciosEnBlanco = "";
+  	 	        							int numDigitos = 9 - nhc.length();
+  	 	        							for(int z = 0;z<numDigitos;z++){
+  	 	        								espaciosEnBlanco += "_";
+  	 	        							}
+  	 	        							nhc = espaciosEnBlanco + nhc;
+  	 	        							nombreFormateado = nuevosPdfs[k].getName().substring(0, 4) + " " + nhc + "   " +
+  	 	        									InicioIanus.documentos[k].nombreNormalizado;
+  	 	        							modelo.addElement(nombreFormateado);
+  	 									}
+  	 									else{
+  	 										modelo.addElement(nuevosPdfs[k].getName());
+  	 									}
+  	 								}
+  	 								listaPdfs.setModel(modelo);
+  								}
   								
-  								InicioIanus.rutaCompletaPdfs = new String[tamaño];
   								
-  								modelo = new DefaultListModel();
-  								objetoPuente = new Object[nuevosPdfs.length];
-  								InicioIanus.documentos = new DocumentoProp[nuevosPdfs.length];
-  									
-  								for(int k=0;k<nuevosPdfs.length;k++){
- 									objetoPuente[k] = nuevosPdfs[k].getName();
- 									//modelo.addElement(nuevosPdfs[k].getName());
- 									InicioIanus.rutaCompletaPdfs[k] = nuevosPdfs[k].getAbsolutePath().toString();
- 									String nombreFormateado = "";
- 									if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
- 	            						InicioIanus.documentos[k] = new DocumentoProp(InicioIanus.rutaCompletaPdfs[k]);
- 									
- 	            						String nhc = InicioIanus.documentos[k].nhc;
- 	        							String espaciosEnBlanco = "";
- 	        							int numDigitos = 9 - nhc.length();
- 	        							for(int z = 0;z<numDigitos;z++){
- 	        								espaciosEnBlanco += "_";
- 	        							}
- 	        							nhc = espaciosEnBlanco + nhc;
- 	        							nombreFormateado = nuevosPdfs[k].getName().substring(0, 4) + " " + nhc + "   " +
- 	        									InicioIanus.documentos[k].nombreNormalizado;
- 	        							modelo.addElement(nombreFormateado);
- 									}
- 									else{
- 										modelo.addElement(nuevosPdfs[k].getName());
- 									}
- 								}
- 								listaPdfs.setModel(modelo);
    							}
   							
   						}
@@ -1384,89 +1390,7 @@ public class VentanaExplorador extends javax.swing.JFrame {
         
         listaPdfs.addMouseListener(new MouseAdapter(){
         	public void mouseClicked(MouseEvent evt){
-
-
-        		
-				InicioIanus.par = false;        		
-        		numArchivo = listaPdfs.getSelectedIndex();
-        		InicioIanus.pdfSeleccionado = numArchivo;
-        		int tamañoLista = listaPdfs.getModel().getSize();
-  
-        		
-        		InicioIanus.tandaDePdfs[0] = new File(InicioIanus.rutaCompletaPdfs[numArchivo]);
-        		
-        		Inicio.navegador1.webBrowser.setVisible(true);
-        		Inicio.navegador1.setPdf(InicioIanus.tandaDePdfs[0].getAbsolutePath().toString(),
-    					InicioIanus.tandaDePdfs[0].getName().toString(), new Color(80,200,120));
-        			
-        		InicioIanus.numPdfsAbiertos = 1;   //	Número de pdfs abiertos en pantalla
-        		
-        		if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
-        			InicioIanus.teclaAzul1.setText(InicioIanus.documentos[numArchivo].nhc);
-        			InicioIanus.teclaAzul2.setText(InicioIanus.documentos[numArchivo].nombreNormalizado);
-         			
-         			
-        			if(InicioIanus.ocr2IanusAutomatico){
-        				InicioIanus.botonIanus1.setText(InicioIanus.nhcIanus1);
-             			InicioIanus.botonIanus2.setText(InicioIanus.nhcIanus2);
-        			}
-        			else{
-        				InicioIanus.botonIanus1.setText(InicioIanus.documentos[numArchivo].nhc);
-        				System.out.println("El boton de ianus1 debería poner... " + InicioIanus.documentos[numArchivo].nhc);
-        			}
-         			
-         			InicioIanus.botonServicio.setText(InicioIanus.documentos[numArchivo].servicio);
-         			InicioIanus.botonNombreNormalizado.setText(InicioIanus.documentos[numArchivo].nombreNormalizado);
-         			
-         			if(!InicioIanus.comboServicios.getSelectedItem().toString().equals(InicioIanus.documentos[numArchivo].servicio)){
-         				InicioIanus.botonServicio.setBackground(Color.red);
-         				Inicio.navegador1.ocrPanel.setBackground(Color.yellow);
-         			}
-         			else{
-         				InicioIanus.botonServicio.setBackground(Color.green);
-         				Inicio.navegador1.ocrPanel.setBackground(new Color(255,222,173));
-         			}
-         			
-         			if(numArchivo > 1){
-         				if(!InicioIanus.documentos[numArchivo].nhc.equals(InicioIanus.documentos[numArchivo-1].nhc)){
-             				Inicio.navegador1.ocrPanel.setBackground(Color.red);
-             				Inicio.navegador1.webBrowserPanel.setBackground(Color.red);
-             			}
-             			else{
-             				Inicio.navegador1.ocrPanel.setBackground(new Color(255,222,173));
-             				Inicio.navegador1.webBrowserPanel.setBackground(new Color(80,200,120));
-             			}
-         			}
-         			
-         			
-         			InicioIanus.comboServicios.setSelectedItem(InicioIanus.documentos[numArchivo].servicio);
-        			
-        			
-        		}
-        		        		
-        		if(triggerVigo){
-        				docVigo.subirVigo(InicioIanus.tandaDePdfs[0].getName());
-        				if(VentanaExplorador.errorData){
-        					docVigo.subirVigoError(InicioIanus.tandaDePdfs[0].getName());
-        					VentanaExplorador.errorData = false;
-        				}
-        			}
-
-        		if((numArchivo + 1<tamañoLista) && InicioIanus.numeroIanus == 2){
-        			numArchivo++;
-        			listaPdfs.setSelectedIndex(numArchivo);
-     			
-        			InicioIanus.tandaDePdfs[1] = new File(InicioIanus.rutaCompletaPdfs[numArchivo]);
-        			
-        			Inicio.navegador2.webBrowser.setVisible(true);
-        			Inicio.navegador2.setPdf(InicioIanus.tandaDePdfs[1].getAbsolutePath().toString(),
-        					InicioIanus.tandaDePdfs[1].getName().toString(),new Color(255,246,143));
-        			            			
-            		InicioIanus.numPdfsAbiertos++;   //	Número de pdfs abiertos en pantalla
-            		
-            		
-        		}
-
+        		pulsarListaPdfs();  
         	}
         });
 
@@ -1487,6 +1411,93 @@ public class VentanaExplorador extends javax.swing.JFrame {
 
         
     }// </editor-fold>
+    
+    
+    public void pulsarListaPdfs(){
+		InicioIanus.par = false;        		
+		numArchivo = listaPdfs.getSelectedIndex();
+		InicioIanus.pdfSeleccionado = numArchivo;
+		int tamañoLista = listaPdfs.getModel().getSize();
+		
+		InicioIanus.coordenadasQuirofanoOn = false;
+		System.out.println("coordenas quirofano falso ventanaexplorador");
+
+		
+		InicioIanus.tandaDePdfs[0] = new File(InicioIanus.rutaCompletaPdfs[numArchivo]);
+		
+		Inicio.navegador1.webBrowser.setVisible(true);
+		Inicio.navegador1.setPdf(InicioIanus.tandaDePdfs[0].getAbsolutePath().toString(),
+				InicioIanus.tandaDePdfs[0].getName().toString(), new Color(80,200,120));
+			
+		InicioIanus.numPdfsAbiertos = 1;   //	Número de pdfs abiertos en pantalla
+		
+		if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
+			InicioIanus.teclaAzul1.setText(InicioIanus.documentos[numArchivo].nhc);
+			InicioIanus.teclaAzul2.setText(InicioIanus.documentos[numArchivo].nombreNormalizado);
+ 			
+ 			
+			if(InicioIanus.ocr2IanusAutomatico){
+				InicioIanus.botonIanus1.setText(InicioIanus.nhcIanus1);
+     			InicioIanus.botonIanus2.setText(InicioIanus.nhcIanus2);
+			}
+			else{
+				InicioIanus.botonIanus1.setText(InicioIanus.documentos[numArchivo].nhc);
+				System.out.println("El boton de ianus1 debería poner... " + InicioIanus.documentos[numArchivo].nhc);
+			}
+ 			
+ 			InicioIanus.botonServicio.setText(InicioIanus.documentos[numArchivo].servicio);
+ 			InicioIanus.botonNombreNormalizado.setText(InicioIanus.documentos[numArchivo].nombreNormalizado);
+ 			
+ 			if(!InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.documentos[numArchivo].servicio)){
+ 				InicioIanus.botonServicio.setBackground(Color.red);
+ 				Inicio.navegador1.ocrPanel.setBackground(Color.yellow);
+ 			}
+ 			else{
+ 				InicioIanus.botonServicio.setBackground(Color.green);
+ 				Inicio.navegador1.ocrPanel.setBackground(new Color(255,222,173));
+ 			}
+ 			
+ 			if(numArchivo > 1){
+ 				if(!InicioIanus.documentos[numArchivo].nhc.equals(InicioIanus.documentos[numArchivo-1].nhc)){
+     				Inicio.navegador1.ocrPanel.setBackground(Color.red);
+     				Inicio.navegador1.webBrowserPanel.setBackground(Color.red);
+     			}
+     			else{
+     				Inicio.navegador1.ocrPanel.setBackground(new Color(255,222,173));
+     				Inicio.navegador1.webBrowserPanel.setBackground(new Color(80,200,120));
+     			}
+ 			}
+ 			
+ 			
+ 			InicioIanus.comboServicios.setSelectedItem(InicioIanus.documentos[numArchivo].servicio);
+			
+			
+		}
+		        		
+		if(triggerVigo){
+				docVigo.subirVigo(InicioIanus.tandaDePdfs[0].getName());
+				if(VentanaExplorador.errorData){
+					docVigo.subirVigoError(InicioIanus.tandaDePdfs[0].getName());
+					VentanaExplorador.errorData = false;
+				}
+			}
+
+		if((numArchivo + 1<tamañoLista) && InicioIanus.numeroIanus == 2){
+			numArchivo++;
+			listaPdfs.setSelectedIndex(numArchivo);
+			
+			InicioIanus.tandaDePdfs[1] = new File(InicioIanus.rutaCompletaPdfs[numArchivo]);
+			
+			Inicio.navegador2.webBrowser.setVisible(true);
+			Inicio.navegador2.setPdf(InicioIanus.tandaDePdfs[1].getAbsolutePath().toString(),
+					InicioIanus.tandaDePdfs[1].getName().toString(),new Color(255,246,143));
+			            			
+    		InicioIanus.numPdfsAbiertos++;   //	Número de pdfs abiertos en pantalla
+    		
+    		
+		}
+    }
+    
 
     public boolean dudasContestadas(String user){
     	String ruta = InicioIanus.RUTA;

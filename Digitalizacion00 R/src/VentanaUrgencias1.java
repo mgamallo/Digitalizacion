@@ -103,7 +103,7 @@ import javax.swing.JPanel;
 	             RobotIanus robotI = new RobotIanus();
 
 	             if(pantallas != 1){ pantallas = 4;}
-	             robotI.robotIanus(cadena, 1000, pantallas, 1, "",false);
+	             robotI.robotIanus(cadena, 1000, pantallas, 1, "",false,false);
 	             
 		            if(InicioIanus.numeroIanus==1 || !InicioIanus.par){
 			            VentanaExplorador.numArchivo++;

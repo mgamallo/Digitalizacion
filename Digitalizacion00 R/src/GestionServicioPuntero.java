@@ -25,6 +25,9 @@ public class GestionServicioPuntero {
 					e.printStackTrace();
 				}
 			}
+			else{
+				InicioIanus.coordenadasQuirofanoOn = false;
+			}
 			
 			break;
 		/*

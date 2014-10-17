@@ -152,7 +152,7 @@ import javax.swing.JPanel;
 	             
 	             
 	 //-----------------------------
-	           robotI.robotIanus(cadena, 1000, pantallas, InicioIanus.tipoDocAsubir, "", false);
+	           robotI.robotIanus(cadena, 1000, pantallas, InicioIanus.tipoDocAsubir, "", false,false);
 	             
 	             
 	             InicioIanus.estadistica.añadirDato(InicioIanus.servicioCombo, InicioIanus.nombreDocumento);

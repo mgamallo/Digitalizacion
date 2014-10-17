@@ -66,8 +66,3 @@ F12::
 	Sleep, 100
 	Click 310, 671
 return
-
-
-Escape::
-	ExitApp
-Return

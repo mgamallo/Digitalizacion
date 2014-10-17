@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.*;
 import java.io.File;
 
-public class RobotIanus {
+public class RobotIanus extends Thread{
 	
 	static final String RUTADOCANULADO = "J:\\DIGITALIZACIÓN\\DOC. ANULADO.pdf";
 	static final String RUTADOCANULADOB = "H:\\DIGITALIZACIÓN\\DOC. ANULADO.pdf";
@@ -53,11 +53,76 @@ public class RobotIanus {
 	int aceptarManualX=1627, aceptarManualY=710; 
 	
 	//	Constructor
-	public void robotIanus(String cadena, int retardo, int pantallas, int tipoDocumento, String titulo,boolean asociarConBarraEspaciadora){
+	
+	//  creo no se utiliza
+	public void run(){
+		
+		// InicioIanus.ventanaBotonesTeclas.jPanel.requestFocus();
+		System.out.println("RequestFocus");
+		
+		try {
+			Robot robot = new Robot();
+			
+	//		robot.delay(5000);
+			
+			
+	// 		System.out.println("Imprime algo");
+			
+			//	---------------------  Ha habido que añadir esto para que siga funcionando. Al abrir el explorador de archivos...
+			//	Otro Aceptar
+
+			robot.delay(100);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			
+			System.out.println("Pulsa aceptar");
+			
+			if(!InicioIanus.sos){
+				
+				//	Acepta
+				
+				robot.mouseMove(acX, acY); 
+				robot.mousePress(InputEvent.BUTTON1_MASK);
+				robot.mouseRelease(InputEvent.BUTTON1_MASK);
+				
+				System.out.println("Acepta otra vez");
+				
+			//	Acepta 2 automatico si está en modo s. c.
+				if(InicioIanus.turbo){
+					robot.delay(200);
+					robot.keyPress(KeyEvent.VK_ENTER);
+					robot.keyRelease(KeyEvent.VK_ENTER);
+					
+					System.out.println("Ultimo aceptar");
+				}
+				
+			//	Aceptar manual
+				if(InicioIanus.numeroPantallas == 2)
+					robot.mouseMove(aceptarManualX, aceptarManualY);
+				
+				// this.actualizaListaPdfsAbiertos();
+			}
+			else{
+				System.out.println("Abortado");
+			}
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void robotIanus(String cadena, int retardo, int pantallas, int tipoDocumento, String titulo,boolean asociarConBarraEspaciadora, boolean repetir){
 
 
 		
+		InicioIanus.sos = false;
+		
 		try{
+			
+			if(repetir){
+				InicioIanus.ventanaE.pulsarListaPdfs();
+			}						
+			
 			Robot robot = new Robot();
 			
 			int longitud = cadena.length();			
@@ -84,9 +149,51 @@ public class RobotIanus {
 			//  1	Ingresos/Urg/Rx
 			//	2	Consultas
 			//	3	CIA
-			//	4	Anulacion
+			//	4	Quirofano Ingre
+			//	5   Anulacion
 			
 			cadenaAimprimir = cadena;
+			
+			/**********  Modulo forzar subida alternativa a 'alt' ********/
+			
+			if(InicioIanus.documentacion == 0 || InicioIanus.documentacion == 1){
+				
+				if(Inicio.botonCoordIngresos.getBackground() == Color.yellow){
+					tipoDocumento = 1;
+				}else if(Inicio.botonCoordConsulta.getBackground() == Color.yellow){
+					tipoDocumento = 2;
+				}else if(Inicio.botonCoordCIA.getBackground() == Color.yellow){
+					tipoDocumento = 3;
+				}else if(Inicio.botonCoordQuirof.getBackground() == Color.yellow){
+					tipoDocumento = 4;
+				}else{
+					if(Inicio.botonCoordIngresos.getBackground() == Color.green){
+						tipoDocumento = 1;
+					}else if(Inicio.botonCoordConsulta.getBackground() == Color.green){
+						tipoDocumento = 2;
+					}else if(Inicio.botonCoordCIA.getBackground() == Color.green){
+						tipoDocumento = 3;
+					}else if(Inicio.botonCoordQuirof.getBackground() == Color.green){
+						tipoDocumento = 4;
+					}
+					
+					Inicio.limpiarBotonesCoordenadas();
+					
+					if(InicioIanus.servicioCombo.toLowerCase().contains("HOSP".toLowerCase()) || 
+							InicioIanus.servicioCombo.toLowerCase().contains("URG".toLowerCase())){
+						Inicio.botonCoordIngresos.setBackground(Color.green);
+			       
+			        }else if(InicioIanus.servicioCombo.toLowerCase().contains("CIA".toLowerCase())){
+			        	Inicio.botonCoordCIA.setBackground(Color.green);
+			        //	System.out.println(comboElegido);
+			        }else{
+			        	Inicio.botonCoordConsulta.setBackground(Color.green);
+			        //	System.out.println("Consulta" + comboElegido);
+			        }
+				}
+				
+			}
+			
 			
 			int comodin;
 			if(tipoDocumento == 1){
@@ -95,8 +202,23 @@ public class RobotIanus {
 				comodin = 1;
 			}else if(tipoDocumento == 3){
 				comodin = 2;
-			}else
+			}else if(tipoDocumento == 4){
 				comodin = 3;
+			}else{
+				comodin = 4;
+			}
+
+			
+			if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].servicio)){
+				InicioIanus.coordenadasQuirofanoOn = false;
+				System.out.println("Anulamos coordenadas quirofano por cambio de servicio");
+			}
+			
+			if(InicioIanus.coordenadasQuirofanoOn){
+				comodin = 3;
+				tipoDocumento = 4;
+				System.out.println("Imprimimos quirofano. En robot.");
+			}
 			
 			InicioIanus.lado = setCoordenadas(comodin);
 			
@@ -113,15 +235,31 @@ public class RobotIanus {
 			
 			//	Gestión de los títulos
 			
-			InicioIanus.suspensionTeclado = true;
+			if(repetir){
+				robot.mouseMove(x1, y1);
+				//	System.out.println(x1 + ", " + y1 + " Pega nombre normalizado");
+					robot.delay(75);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					robot.delay(100);
+			}
 			
 			if(/*(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3) && */
 					(InicioIanus.conjuntoTitulos.contains(cadena) || cadena.contains("Doc. anulado"))){
 				// System.out.println("Debería imprimir el título");
 				
-				titulo = cadena;
+				for(int f=0;f<InicioIanus.aliasTitulos.size();f++){
+					if(InicioIanus.aliasTitulos.get(f).titulo.equals(cadena)){
+						titulo = InicioIanus.aliasTitulos.get(f).alias;
+						break;
+					}
+					else{
+						titulo = cadena;
+					}
+				}
+
 				
-				/*** una mini chapuza */
+				// Clicka en el nombre secundario
 				
 				robot.mouseMove(x1, y1);
 				//	System.out.println(x1 + ", " + y1 + " Pega nombre normalizado");
@@ -130,7 +268,8 @@ public class RobotIanus {
 					robot.mouseRelease(InputEvent.BUTTON1_MASK);
 					robot.delay(100);
 				
-				
+				// Escribe el título
+									
 				if(titulo.length() != 0){
 					// System.out.println("Llegamos a este bucle");
 					robot.mouseMove(x1, y1-27);
@@ -139,10 +278,10 @@ public class RobotIanus {
 					robot.mousePress(InputEvent.BUTTON1_MASK);
 					robot.mouseRelease(InputEvent.BUTTON1_MASK);
 					robot.delay(100);
+										
 					
-					
-					if(!cadena.contains("Doc. anulado")){
-						for(int k = 0; k< titulo.length() && k < 7;k++){
+					if(!cadena.contains("Documento anulado")){
+						for(int k = 0; k< titulo.length();k++){
 							getChar(titulo.charAt(k));
 							robot.delay(10);
 							// System.out.println(titulo.charAt(k));
@@ -150,10 +289,16 @@ public class RobotIanus {
 					}
 					else{
 						robot.delay(100);
-						robot.mouseMove(x1,y1-13);
+						getChar('a');
+						robot.delay(500);
+						robot.keyPress(KeyEvent.VK_UP);
+						robot.keyRelease(KeyEvent.VK_UP);
+						robot.delay(75);
+						// robot.mouseMove(x1,y1-13);
 						System.out.println("anulando");
 					}
 					
+		
 
 					robot.delay(200);
 					robot.keyPress(KeyEvent.VK_ENTER);
@@ -191,117 +336,165 @@ public class RobotIanus {
 				
 			}
 			
-			InicioIanus.suspensionTeclado = false;
+		//	System.out.println("02 InicioIanus.sos vale " + InicioIanus.sos);
 			
 
-			//	Pega nombre normalizado				
-			robot.mouseMove(x1, y1);
-		//	System.out.println(x1 + ", " + y1 + " Pega nombre normalizado");
-			robot.delay(75);
-			robot.mousePress(InputEvent.BUTTON1_MASK);
-			robot.mouseRelease(InputEvent.BUTTON1_MASK);
-			if(cadena.toLowerCase().contains("Doc. Anulado".toLowerCase())){
-				robot.delay(100);
-				robot.mousePress(InputEvent.BUTTON1_MASK);
-				robot.mouseRelease(InputEvent.BUTTON1_MASK);
-				robot.delay(100);
-				robot.mousePress(InputEvent.BUTTON1_MASK);
-				robot.mouseRelease(InputEvent.BUTTON1_MASK);
+			//	Pega nombre normalizado		
+			if(true){
+
+				if(repetir && !InicioIanus.conjuntoTitulos.contains(cadena)){
+					/*
+					robot.mouseMove(x1, y1);	
+					robot.delay(75);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					
+					robot.delay(100);
+					*/
+					robot.mouseMove(x1, y1-27);	
+					robot.delay(75);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					
+						robot.delay(100);
+						getChar('a');
+						robot.delay(500);
+						robot.keyPress(KeyEvent.VK_UP);
+						robot.keyRelease(KeyEvent.VK_UP);
+						robot.delay(75);
+				}
+			
+				robot.mouseMove(x1, y1);
+				//	System.out.println(x1 + ", " + y1 + " Pega nombre normalizado");
 				robot.delay(75);
-				robot.keyPress(KeyEvent.VK_CLEAR);
-			}
+			
+			
+				robot.mousePress(InputEvent.BUTTON1_MASK);
+				robot.mouseRelease(InputEvent.BUTTON1_MASK);
+				if(cadena.toLowerCase().contains(InicioIanus.DOC_ANULADO.toLowerCase()) || repetir){
+					robot.delay(100);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					robot.delay(100);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					robot.delay(75);
+					robot.keyPress(KeyEvent.VK_CLEAR);
+				}
 
-			//	Actualiza el boton de ultimo subido
-			InicioIanus.jBultimoNombreSubido.setText(cadena);
+				//	Actualiza el boton de ultimo subido
+				InicioIanus.jBultimoNombreSubido.setText(cadena);
+				
+				robot.delay(50);
+				
+				CopEnPortapapeles copiarNombre = new CopEnPortapapeles();
+				copiarNombre.copiarAlPortapapeles(cadena);
+				
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				
+				robot.delay(250);
+	
+				
+			//	System.out.println("03 InicioIanus.sos vale " + InicioIanus.sos);
+				
+				//	Imprime nombre archivo
+				robot.mouseMove(rX, rY);
+				robot.mousePress(InputEvent.BUTTON1_MASK);
+				robot.mouseRelease(InputEvent.BUTTON1_MASK);	
+				
+				robot.delay(50);
+				
+				this.determinaPdfASubir();
 			
-			robot.delay(50);
+				CopEnPortapapeles copiar = new CopEnPortapapeles();
 			
-			CopEnPortapapeles copiarNombre = new CopEnPortapapeles();
-			copiarNombre.copiarAlPortapapeles(cadena);
-			
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_V);
-			robot.keyRelease(KeyEvent.VK_V);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			
-			robot.delay(250);
 
-			
-			//	Imprime nombre archivo
-			robot.mouseMove(rX, rY);
-			robot.mousePress(InputEvent.BUTTON1_MASK);
-			robot.mouseRelease(InputEvent.BUTTON1_MASK);	
-			
-			robot.delay(50);
-			
-			this.determinaPdfASubir();
-			
-			CopEnPortapapeles copiar = new CopEnPortapapeles();
 
-			if(cadena.toLowerCase().contains("Doc. Anulado".toLowerCase())){
-				copiar.copiarAlPortapapeles(rutaDocAnulado);
-				File ficheroAux = new File(rutaDocAnulado);
-				InicioIanus.estadisticaSantiago.add(new DatoEstadisticoSantiago(InicioIanus.servicioCombo,cadena,ficheroAux.length()/1024));
-			}else{
-				copiar.copiarAlPortapapeles(InicioIanus.tandaDePdfs[pdfASubir-1].getAbsolutePath().toString());
-				// System.out.println(InicioIanus.tandaDePdfs[pdfASubir-1].getAbsolutePath().toString());
-				InicioIanus.estadisticaSantiago.add(new DatoEstadisticoSantiago(InicioIanus.servicioCombo,cadena,InicioIanus.tandaDePdfs[pdfASubir-1].length()/1024));
-			}
-			
-			this.actualizaListaPdfsAbiertos();
-			
+				if(cadena.toLowerCase().contains(InicioIanus.DOC_ANULADO.toLowerCase())){
+					copiar.copiarAlPortapapeles(rutaDocAnulado);
+					File ficheroAux = new File(rutaDocAnulado);
+					InicioIanus.estadisticaSantiago.add(new DatoEstadisticoSantiago(InicioIanus.servicioCombo,cadena,ficheroAux.length()/1024));
+				}else{
+					copiar.copiarAlPortapapeles(InicioIanus.tandaDePdfs[pdfASubir-1].getAbsolutePath().toString());
+					// System.out.println(InicioIanus.tandaDePdfs[pdfASubir-1].getAbsolutePath().toString());
+					InicioIanus.estadisticaSantiago.add(new DatoEstadisticoSantiago(InicioIanus.servicioCombo,cadena,InicioIanus.tandaDePdfs[pdfASubir-1].length()/1024));
+				}
+				
+				
+			//	System.out.println("04 InicioIanus.sos vale " + InicioIanus.sos);
+				
 				robot.delay(InicioIanus.retardoPulsarExaminar);		
 				robot.keyPress(KeyEvent.VK_CONTROL);
 				robot.keyPress(KeyEvent.VK_V);
 				robot.keyRelease(KeyEvent.VK_V);
 				robot.keyRelease(KeyEvent.VK_CONTROL);
 				
-				
-				//	---------------------  Ha habido que añadir esto para que siga funcionando. Al abrir el explorador de archivos...
-				//	Otro Aceptar
-
-				robot.delay(100);
-				robot.keyPress(KeyEvent.VK_ENTER);
-				robot.keyRelease(KeyEvent.VK_ENTER);
-				
-				/*
-				if(InicioIanus.documentos[0].nhc.equals("Separador")){
-					if(InicioIanus.pdfSeleccionado == 2 || InicioIanus.pdfSeleccionado == 3)
-						robot.delay(2200);
-					else
-						robot.delay(InicioIanus.retardoAceptar);	
-				}else{
-					if(InicioIanus.pdfSeleccionado == 1 || InicioIanus.pdfSeleccionado == 2)
-						robot.delay(2200);
-					else
-						robot.delay(InicioIanus.retardoAceptar);
-				}
-				 */
-				
-			//	Acepta
-				
-				
-				robot.mouseMove(acX, acY); 
-				robot.mousePress(InputEvent.BUTTON1_MASK);
-				robot.mouseRelease(InputEvent.BUTTON1_MASK);
-				
-
-			
-			//	Acepta 2 automatico si está en modo s. c.
-				if(InicioIanus.turbo){
-					robot.delay(200);
+				//start();
+					
+					
+					//	---------------------  Ha habido que añadir esto para que siga funcionando. Al abrir el explorador de archivos...
+					//	Otro Aceptar
+	
+					robot.delay(100);
 					robot.keyPress(KeyEvent.VK_ENTER);
 					robot.keyRelease(KeyEvent.VK_ENTER);
-				}
+					
+			
+					
+					/*
+					if(InicioIanus.documentos[0].nhc.equals("Separador")){
+						if(InicioIanus.pdfSeleccionado == 2 || InicioIanus.pdfSeleccionado == 3)
+							robot.delay(2200);
+						else
+							robot.delay(InicioIanus.retardoAceptar);	
+					}else{
+						if(InicioIanus.pdfSeleccionado == 1 || InicioIanus.pdfSeleccionado == 2)
+							robot.delay(2200);
+						else
+							robot.delay(InicioIanus.retardoAceptar);
+					}
+					 */
+					
+			//		System.out.println("05 InicioIanus.sos vale " + InicioIanus.sos);
+					System.out.println("Empieza la condición");
+					if(!InicioIanus.sos){
+			//			System.out.println("Entró en la condición");
+			//			System.out.println("06 InicioIanus.sos vale " + InicioIanus.sos);
+						//	Acepta
+						
+						robot.mouseMove(acX, acY); 
+						robot.mousePress(InputEvent.BUTTON1_MASK);
+						robot.mouseRelease(InputEvent.BUTTON1_MASK);
+						
+					//	Acepta 2 automatico si está en modo s. c.
+						if(InicioIanus.turbo){
+							robot.delay(200);
+							robot.keyPress(KeyEvent.VK_ENTER);
+							robot.keyRelease(KeyEvent.VK_ENTER);
+						}
+						
+					//	Aceptar manual
+						if(InicioIanus.numeroPantallas == 2)
+							robot.mouseMove(aceptarManualX, aceptarManualY);
+						
+						this.actualizaListaPdfsAbiertos();
+					}
+					else{
+				//		System.out.println("-------------No entró en la condición");
+				//		System.out.println("10 InicioIanus.sos vale " + InicioIanus.sos);
+						System.out.println("Abortado");
+					}
 				
-			//	Aceptar manual
-				if(InicioIanus.numeroPantallas == 2)
-					robot.mouseMove(aceptarManualX, aceptarManualY);
+		
+					this.actualizaListaPdfsAbiertos();
+			}
 				
-				
-		}catch (AWTException e){
-			e.printStackTrace();
-		}
+			}catch (AWTException e){
+				e.printStackTrace();
+			}
 	}
 	
 	private char setCoordenadas(int comodin){
@@ -488,7 +681,12 @@ public class RobotIanus {
 				
 				if((InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
 					if(InicioIanus.servicioCombo.contains("ALG") && 
-							(cadenaAimprimir.contains("Pruebas diagnósticas") || cadenaAimprimir.contains("Espirometría"))){
+							( cadenaAimprimir.contains(InicioIanus.PRUEBAS_DIAGNOSTICAS) || 
+							  cadenaAimprimir.contains(InicioIanus.PRICK)				|| 
+							  cadenaAimprimir.contains(InicioIanus.ESPIROMETRIA)		||
+							  cadenaAimprimir.contains(InicioIanus.PRUEBAS_EPICUTANEAS)	||
+							  cadenaAimprimir.contains(InicioIanus.PRUEBAS_PROVOCACION)			
+							  )){
 						if(!InicioIanus.nodoForzado){
 							punto.x = 1646;
 						}
@@ -498,7 +696,7 @@ public class RobotIanus {
 				
 				punto.y = 1169;
 			}
-			else if(tipoDocumento == 3){  //  Cia
+			else if(tipoDocumento == 3 || tipoDocumento == 4 ){  //  Cia o quirofano
 				punto.x = 1529;
 				punto.y = 1169;
 			}
@@ -514,7 +712,7 @@ public class RobotIanus {
 			robot.mousePress(InputEvent.BUTTON1_MASK);
 			robot.mouseRelease(InputEvent.BUTTON1_MASK);
 			
-			robot.delay(200);
+			robot.delay(InicioIanus.retardoAsociarAceptar);
 			if(tipoDocumento == 1){		//  Ingreso, urg
 				robot.keyPress(KeyEvent.VK_ENTER);
 				robot.keyRelease(KeyEvent.VK_ENTER);					

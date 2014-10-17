@@ -104,21 +104,70 @@ public class CapturaRatonYTeclado implements NativeKeyListener, NativeMouseInput
 	//	Métodos de teclado *************************************************************
 	
 	@Override
-	public void nativeKeyPressed(NativeKeyEvent arg0) {
+	public void nativeKeyPressed(NativeKeyEvent e) {
 		// TODO Auto-generated method stub
+		// System.out.println("NativeKeyPressed " + e.getKeyCode());
+		if(e.getKeyCode()== 27){
+			InicioIanus.sos = true;
+			System.out.println("Pulsado escape");
+			System.out.println(InicioIanus.sos);
+		}
 		
+	//	System.out.println("Tecla ... " + e.getKeyCode());
+		
+		if(InicioIanus.documentacion == 1 || InicioIanus.documentacion == 0){
+			switch (e.getKeyCode()) {
+			case 112:
+				System.out.println("Pulsado f1");
+				Inicio.limpiarBotonesCoordenadasAmarillo(1);
+				break;
+			case 113:
+				System.out.println("Pulsado f2");
+				Inicio.limpiarBotonesCoordenadasAmarillo(2);
+				break;
+			case 114:
+				System.out.println("Pulsado f3");
+				Inicio.limpiarBotonesCoordenadasAmarillo(3);
+				break;
+			case 115:
+				System.out.println("Pulsado f4");
+				Inicio.limpiarBotonesCoordenadasAmarillo(4);
+				break;
+				
+			case 81:  // q
+				System.out.println("Pulsado f1");
+				Inicio.limpiarBotonesCoordenadas(1);
+				break;
+			case 87:  // w
+				System.out.println("Pulsado f2");
+				Inicio.limpiarBotonesCoordenadas(2);
+				break;
+			case 69:  // e
+				System.out.println("Pulsado f3");
+				Inicio.limpiarBotonesCoordenadas(3);
+				break;
+			case 82:  // r
+				System.out.println("Pulsado f4");
+				Inicio.limpiarBotonesCoordenadas(4);
+				break;
+			}
+		}
+
+		
+
+
 	}
 
 	@Override
 	public void nativeKeyReleased(NativeKeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		//System.out.println("NativeKeyReleased " + arg0.getKeyCode());
 	}
 
 	@Override
 	public void nativeKeyTyped(NativeKeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		//System.out.println("NativeKeyTyped " + arg0.getKeyCode());
 	}
 
 }

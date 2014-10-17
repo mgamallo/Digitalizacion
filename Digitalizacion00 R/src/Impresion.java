@@ -9,7 +9,7 @@ public class Impresion {
 	
 	int pantallas;
 
-	public void imprime(String cadena, boolean pulsadaBarraEspaciadora,int tipoDocAsubirForzado){
+	public void imprime(String cadena, boolean pulsadaBarraEspaciadora,int tipoDocAsubirForzado, boolean repetir){
 		RobotIanus robotI = new RobotIanus();
 		InicioIanus.nombreDocumento = cadena;
 		
@@ -56,7 +56,7 @@ public class Impresion {
         
         /**************   Imprime en Ianus     *****************************************************/
         
-	        robotI.robotIanus(cadena, 1000, pantallas, InicioIanus.tipoDocAsubir, "",pulsadaBarraEspaciadora);
+	        robotI.robotIanus(cadena, 1000, pantallas, InicioIanus.tipoDocAsubir, "",pulsadaBarraEspaciadora,repetir);
         
         
         
@@ -103,7 +103,7 @@ public class Impresion {
 	         			InicioIanus.botonServicio.setText(InicioIanus.documentos[pdfNumero].servicio);
 	         			InicioIanus.botonNombreNormalizado.setText(InicioIanus.documentos[pdfNumero].nombreNormalizado);
 	         			
-	         			if(!InicioIanus.comboServicios.getSelectedItem().toString().equals(InicioIanus.documentos[pdfNumero].servicio)){
+	         			if(!InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.documentos[pdfNumero].servicio)){
 	         				InicioIanus.botonServicio.setBackground(Color.red);
 	         				Inicio.navegador1.ocrPanel.setBackground(Color.yellow);
 	         				Inicio.navegador1.ocrBotonesVelocidad.setBackground(Color.yellow);

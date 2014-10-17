@@ -39,6 +39,8 @@ public class Gestion2Ianus {
 	
 	public void impresionInicial(){
 		
+		InicioIanus.coordenadasQuirofanoOn = false;
+		
 		VentanaExplorador.numArchivo = indiceNhc1;
 		VentanaExplorador.listaPdfs.setSelectedIndex(VentanaExplorador.numArchivo);
 		InicioIanus.pdfSeleccionado = indiceNhc1;
@@ -63,7 +65,7 @@ public class Gestion2Ianus {
  			InicioIanus.botonServicio.setText(InicioIanus.documentos[indiceNhc1].servicio);
  			InicioIanus.botonNombreNormalizado.setText(InicioIanus.documentos[indiceNhc1].nombreNormalizado);
  			
- 			if(!InicioIanus.comboServicios.getSelectedItem().toString().equals(InicioIanus.documentos[indiceNhc1].servicio)){
+ 			if(!InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.documentos[indiceNhc1].servicio)){
  				InicioIanus.botonServicio.setBackground(Color.red);
  				Inicio.navegador1.ocrPanel.setBackground(Color.yellow);
  			}
@@ -101,6 +103,8 @@ public class Gestion2Ianus {
 	public void reset(){
 		
 		reseteaTeclas();
+		
+		InicioIanus.coordenadasQuirofanoOn = false;
 		
 		indiceNhc1 = 0;
 		indiceNhc2 = 0;
@@ -146,7 +150,7 @@ public class Gestion2Ianus {
  			InicioIanus.botonServicio.setText(InicioIanus.documentos[indiceNhc1].servicio);
  			InicioIanus.botonNombreNormalizado.setText(InicioIanus.documentos[indiceNhc1].nombreNormalizado);
  			
- 			if(!InicioIanus.comboServicios.getSelectedItem().toString().equals(InicioIanus.documentos[indiceNhc1].servicio)){
+ 			if(!InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.documentos[indiceNhc1].servicio)){
  				InicioIanus.botonServicio.setBackground(Color.red);
  				Inicio.navegador1.ocrPanel.setBackground(Color.yellow);
  			}
@@ -224,13 +228,13 @@ public class Gestion2Ianus {
 			 if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].nhc.equals(InicioIanus.nhcIanus1)){
 				 				 
 				 if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].nhc.equals(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nhc)
-							&& /*(!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG") && */ !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("ALG")){
+							&& !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.contains("ALG")){
 						 // JOptionPane.showMessageDialog(null, "En principio es el mismo paciente");
 						 //	InicioIanus.tipoSubida = 1;
 					 	int nodoDocumentoActual = 0;
 					 	int nodoDocumentoAnterior = 0;
 					 	
-					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG")){
+					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.contains("DIG")){
 					 		if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("pHmetría") &&
 					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Manometría") &&
 					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Enfermería endoscopias") &&
@@ -242,7 +246,7 @@ public class Gestion2Ianus {
 					 			nodoDocumentoActual = 2;
 					 	}
 					 	
-					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].servicio.equals("DIG")){
+					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].servicio.contains("DIG")){
 					 		if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("pHmetría") &&
 					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Manometría") &&
 					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Enfermería endoscopias") &&
@@ -254,21 +258,24 @@ public class Gestion2Ianus {
 					 			nodoDocumentoAnterior = 2;
 					 	}
 					 	
-					 
-						 if(new GestionServicioPuntero().gestion() && (nodoDocumentoActual == nodoDocumentoAnterior)){
+
+					 	if(new GestionServicioPuntero().gestion() && (nodoDocumentoActual == nodoDocumentoAnterior)){
 							 Impresion impr = new Impresion();
-							 impr.imprime(InicioIanus.teclaAzul2.getText(),true,0);
-							 
+							 impr.imprime(InicioIanus.teclaAzul2.getText(),true,0,false);
 						 }
 				 }
 				 else{
 					 JOptionPane.showMessageDialog(null, "No cambia el paciente");
+					 InicioIanus.coordenadasQuirofanoOn = false;
 				 }
 			 }
 			 else{
 				 
 				 //desFijaVentana();
 				 pulsaTecla(KeyEvent.VK_F9);    //	Sale del paciente en ianus
+				 
+				 InicioIanus.coordenadasQuirofanoOn = false;
+				 System.out.println("coordenas quirofano falso en gestion. saliendo paciente.");
 				 
 				 Inicio.navegador1.webBrowserPanel.setBackground(new Color(80,200,120));
 				 
@@ -315,14 +322,14 @@ public class Gestion2Ianus {
 			 if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].nhc.equals(InicioIanus.nhcIanus2)){
 				 
 				 if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].nhc.equals(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nhc)
-							/*&&  (!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG") */ && !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("ALG")){
+							/*&&  (!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG") */ && !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.contains("ALG")){
 						 // JOptionPane.showMessageDialog(null, "En principio es el mismo paciente");
 						 //	InicioIanus.tipoSubida = 1;
 					 
 					 	int nodoDocumentoActual = 0;
 					 	int nodoDocumentoAnterior = 0;
 					 	
-					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG")){
+					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.contains("DIG")){
 					 		if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("pHmetría") &&
 					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Manometría") &&
 					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado.equals("Enfermería endoscopias") &&
@@ -334,7 +341,7 @@ public class Gestion2Ianus {
 					 			nodoDocumentoActual = 2;
 					 	}
 					 	
-					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].servicio.equals("DIG")){
+					 	if(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].servicio.contains("DIG")){
 					 		if(!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("pHmetría") &&
 					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Manometría") &&
 					 				!InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nombreNormalizado.equals("Enfermería endoscopias") &&
@@ -345,16 +352,16 @@ public class Gestion2Ianus {
 					 		else 
 					 			nodoDocumentoAnterior = 2;
 					 	}
-					 	
 					 
-						 if(new GestionServicioPuntero().gestion() && (nodoDocumentoActual == nodoDocumentoAnterior)){
+					 	
+				 		if(new GestionServicioPuntero().gestion() && (nodoDocumentoActual == nodoDocumentoAnterior)){
 							 Impresion impr = new Impresion();
-							 impr.imprime(InicioIanus.teclaAzul2.getText(),true,0);
-							 
+							 impr.imprime(InicioIanus.teclaAzul2.getText(),true,0,false);
 						 }
 				 }
 				 else{
 					 JOptionPane.showMessageDialog(null, "No cambia el paciente");
+					 InicioIanus.coordenadasQuirofanoOn = false;
 				 }
 				 
 			 }
@@ -362,6 +369,9 @@ public class Gestion2Ianus {
 				 
 				 //desFijaVentana();
 				 pulsaTecla(KeyEvent.VK_F9);
+				 
+				 InicioIanus.coordenadasQuirofanoOn = false;
+				 System.out.println("coordenas quirofano falso. saliendo paciente.");
 				 
 				 Inicio.navegador1.webBrowserPanel.setBackground(new Color(80,200,120));
 				 

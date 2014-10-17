@@ -432,17 +432,17 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
         
         if(InicioIanus.documentacion != 0 && InicioIanus.documentacion != 3){
           	b1 = InicioIanus.LISTAESPERA;
-            b2 = "Interconsulta";
+            b2 = InicioIanus.INTERCONSULTA;
             b3 = InicioIanus.CONSENTIMIENTO;
         }else{
-        	b1 = "Informe urg.";
-            b2 = "Enfermería urg.";
+        	b1 = InicioIanus.INFORMEURG;
+            b2 = InicioIanus.ENFERMERIAURG;
             b3 = "URG";
         }
         
         String b4 = "Último doc.";
         String b5 = InicioIanus.EKG;
-        String b6 = "Eco";
+        String b6 = InicioIanus.ECO;
         
         String b7;
         String b8;
@@ -503,7 +503,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
          			 JOptionPane.showMessageDialog(jButton1, "Teclas rápidas habilitadas");
              	}
              	else{
-             		imprime(jButton1.getText(),false,0);
+             		imprime(jButton1.getText(),false,0,false);
              		jPanel.requestFocus();
              		}
          	 }
@@ -551,7 +551,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
    		        		   */
              	}
              	else{
-             		imprime(jButton9.getText(),false,0);
+             		imprime(jButton9.getText(),false,0,false);
              		jPanel.requestFocus();
              		}
          	 }
@@ -599,7 +599,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
    		        		   */
              	}
              	else{
-             		imprime(jButton10.getText(),false,0);
+             		imprime(jButton10.getText(),false,0,false);
              		jPanel.requestFocus();
              		}
          	 }
@@ -645,7 +645,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
            			
                	}
              	else{
-             		imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0);
+             		imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0,false);
              		jPanel.requestFocus();
              		}
          	 }
@@ -693,7 +693,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
    		        		   */
              	}
              	else{
-             		imprime(jButton12.getText(),false,0);
+             		imprime(jButton12.getText(),false,0,false);
              		jPanel.requestFocus();
              		}
          	 }
@@ -742,7 +742,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
     		        		   */
               	}
               	else{
-              		imprime(jButton13.getText(),false,0);
+              		imprime(jButton13.getText(),false,0,false);
               		jPanel.requestFocus();
               		}
           	 }
@@ -799,7 +799,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 	       			jPanel.requestFocus();
 	           	}
 	           	else{
-	           		imprime(InicioIanus.teclaAzul1.getText(),false,0);
+	           		imprime(InicioIanus.teclaAzul1.getText(),false,0,false);
 	           		jPanel.requestFocus();
 	           	}
 	       	}
@@ -858,12 +858,12 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
  	           			InicioIanus.teclaAzul2.setText(seleccion.toString());
  	            	}
  	            	else{
- 	            		 imprime(InicioIanus.teclaAzul2.getText(),false,0);
+ 	            		 imprime(InicioIanus.teclaAzul2.getText(),false,0,false);
  	            		 jPanel.requestFocus();
  	            	}
  	        	}
  	        	else{
- 	        		imprime(InicioIanus.teclaAzul2.getText(),false,0);
+ 	        		imprime(InicioIanus.teclaAzul2.getText(),false,0,false);
  	        		jPanel.requestFocus();
  	        	}
         		 jPanel.requestFocus();
@@ -936,12 +936,12 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
         KeyListener listener = new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				System.out.println("keyTyped="+KeyEvent.getKeyText(e.getKeyCode()));
+				// System.out.println("keyTyped="+KeyEvent.getKeyText(e.getKeyCode()));
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				System.out.println("keyPressed="+KeyEvent.getKeyText(e.getKeyCode()));
+				// System.out.println("keyPressed="+KeyEvent.getKeyText(e.getKeyCode()));
 			}
 
 			@Override
@@ -949,46 +949,46 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 				
 				// System.out.println(e.getKeyText(e.getKeyCode()));
 				
-				if(!InicioIanus.suspensionTeclado){
+				if(true){
 					switch (e.getKeyCode()){
-					case KeyEvent.VK_A: imprime(jButton1.getText(),false,0);break;
+					case KeyEvent.VK_A: imprime(jButton1.getText(),false,0,false);break;
 
-					case KeyEvent.VK_S: imprime(jButton9.getText(),false,0);break;
+					case KeyEvent.VK_S: imprime(jButton9.getText(),false,0,false);break;
 
-					case KeyEvent.VK_D: imprime(jButton10.getText(),false,0);break;
+					case KeyEvent.VK_D: imprime(jButton10.getText(),false,0,false);break;
 
-					case KeyEvent.VK_F: imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0);break;
+					case KeyEvent.VK_F: imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0,false);break;
 					
 					
-					case KeyEvent.VK_F4:imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0);break;
+					// case KeyEvent.VK_F4:imprime(InicioIanus.jBultimoNombreSubido .getText(),false,0);break;
 					
 					case KeyEvent.VK_F5:
 						if(!(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
-							imprime(jButton12.getText(),false,0);
+							imprime(jButton12.getText(),false,0,false);
 				        }
 						break;
 						
 					case KeyEvent.VK_F6:
 						if(!(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
-							imprime(jButton13.getText(),false,0);
+							imprime(jButton13.getText(),false,0,false);
 				        }
 						break;
 						
 					case KeyEvent.VK_F7:
 						if(!(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
-							imprime(InicioIanus.teclaAzul1.getText(),false,0);
+							imprime(InicioIanus.teclaAzul1.getText(),false,0,false);
 				        }
 						break;
 						
 					case KeyEvent.VK_F8:
 						if(!(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3)){
-							imprime(InicioIanus.teclaAzul2.getText(),false,0);
+							imprime(InicioIanus.teclaAzul2.getText(),false,0,false);
 				        }
 						break;
 					
-					case KeyEvent.VK_Z: imprime(jButton12.getText(),false,0);break;
-					// case KeyEvent.VK_F5:imprime(jButton12.getText(),false,0);break;
-					case KeyEvent.VK_X: imprime(jButton13.getText(),false,0);break;
+					case KeyEvent.VK_Z: imprime(jButton12.getText(),false,0,false);break;
+					// case KeyEvent.VK_F5:imprime(jButton12.getText(),false,0,false);break;
+					case KeyEvent.VK_X: imprime(jButton13.getText(),false,0,false);break;
 					//case KeyEvent.VK_F6:imprime(jButton13.getText());break;
 					//case KeyEvent.VK_SPACE: alternarPdf();break;
 					//case KeyEvent.VK_F7: break;
@@ -1003,41 +1003,68 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 						//	Fuerza a que lo imprima como ingreso
 						if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
 							InicioIanus.nodoForzado = true;
-							imprime(InicioIanus.teclaAzul2.getText(), false, 1);
+							imprime(InicioIanus.teclaAzul2.getText(), false, 1,false);
 							InicioIanus.nodoForzado = false;
+							
+							InicioIanus.coordenadasQuirofanoOn = false;
 						}
+						/*
 						else{
-							imprime(jButton1.getText(),false,0);
+							imprime(jButton1.getText(),false,0,false);
 						}
+						*/
 						break;
 					case KeyEvent.VK_F2: 
 						//	Fuerza a que lo imprima como consulta
 						if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
 							InicioIanus.nodoForzado = true;
-							imprime(InicioIanus.teclaAzul2.getText(), false, 2);
+							imprime(InicioIanus.teclaAzul2.getText(), false, 2,false);
 							InicioIanus.nodoForzado = false;
+							
+							InicioIanus.coordenadasQuirofanoOn = false;
 						}
+						/*
 						else{
-							imprime(jButton9.getText(),false,0);
+							imprime(jButton9.getText(),false,0,false);
 						}
+						*/
 						break;
 					case KeyEvent.VK_F3: 
 						//	Fuerza a que lo imprima como cia
 						if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
 							InicioIanus.nodoForzado = true;
-							imprime(InicioIanus.teclaAzul2.getText(), false, 3);
+							imprime(InicioIanus.teclaAzul2.getText(), false, 3,false);
 							InicioIanus.nodoForzado = false;
+							
+							InicioIanus.coordenadasQuirofanoOn = false;
 						}
+						/*
 						else{
-							imprime(jButton10.getText(),false,0);
+							imprime(jButton10.getText(),false,0,false);
 						}
+						*/
 						break;
-					
+					case KeyEvent.VK_F4: 
+						//	Fuerza a que lo imprima como quirofano ingreso
+						if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
+							InicioIanus.nodoForzado = true;
+							imprime(InicioIanus.teclaAzul2.getText(), false, 4,false); /// Quirofano ingreso
+							
+							InicioIanus.nodoForzado = false;
+							
+							InicioIanus.coordenadasQuirofanoOn = true;
+						}
+						/*
+						else{
+							imprime(jButton10.getText(),false,0,false);
+						}
+						*/
+						break;					
 					
 					case KeyEvent.VK_C: 
 						if(InicioIanus.documentacion != 2 && InicioIanus.documentacion != 3){
 							//System.out.println("Estoy pulsando la c");
-							imprime(InicioIanus.teclaAzul1.getText(),false,0);break;
+							imprime(InicioIanus.teclaAzul1.getText(),false,0,false);break;
 						}
 						else{
 							introduceNHC();
@@ -1048,15 +1075,48 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 					case KeyEvent.VK_V: 
 						if(InicioIanus.documentacion != 2 && InicioIanus.documentacion != 3){
 							//System.out.println("Estoy pulsando la v");
-							imprime(InicioIanus.teclaAzul2.getText(),false,0);
+							imprime(InicioIanus.teclaAzul2.getText(),false,0,false);
 						}
 						else{
-							imprime(InicioIanus.teclaAzul2.getText(),false,0);
+							imprime(InicioIanus.teclaAzul2.getText(),false,0,false);
 							System.out.println("Imprimiendo");
 							//imprimeNombreDoc();
 						}
 						break;
-					case KeyEvent.VK_ESCAPE: cerrarAutoHotKey(false);break;
+						
+						/*
+					case KeyEvent.VK_ESCAPE: 
+						InicioIanus.sos = true;
+						System.out.println("Pulsado escape");
+						break;
+						
+						*/
+						
+					case KeyEvent.VK_B:
+						
+						/*
+						boolean repetir = true;
+						InicioIanus.pdfSeleccionado--;
+						
+						Inicio.navegador1.setPdf(InicioIanus.documentos[InicioIanus.pdfSeleccionado].rutaArchivo,
+	        					InicioIanus.tandaDePdfs[0].getName().toString(),new Color(80,200,120));
+						
+						InicioIanus.ventanaE.listaPdfs.setSelectedIndex(InicioIanus.pdfSeleccionado);
+						InicioIanus.teclaAzul2.setText(InicioIanus.documentos[InicioIanus.pdfSeleccionado].nombreNormalizado);
+						// InicioIanus.botonServicio.setText(InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio);
+						InicioIanus.comboServicios.setSelectedItem(InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio);
+						
+						imprime(InicioIanus.teclaAzul2.getText(),true,0,true);
+						// jPanel.requestFocus();
+						Inicio.navegador1.setPdf(InicioIanus.tandaDePdfs[0].getAbsolutePath().toString(),
+	        					InicioIanus.tandaDePdfs[0].getName().toString(),new Color(80,200,120));
+	        					
+	        					*/
+						
+
+						
+						break;
+						
 					case KeyEvent.VK_SPACE: 
 
 						InicioIanus.ClickImportante = InicioIanus.ultimoClick;
@@ -1070,11 +1130,11 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 
 							
 							if(InicioIanus.documentos[InicioIanus.pdfSeleccionado].nhc.equals(InicioIanus.documentos[InicioIanus.pdfSeleccionado-1].nhc)
-									&& /* (!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG")  && */ !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("ALG")){
+									&& /* (!InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.equals("DIG")  && */ !InicioIanus.documentos[InicioIanus.pdfSeleccionado].servicio.contains("ALG")){
 								 // JOptionPane.showMessageDialog(null, "En principio es el mismo paciente");
 								 //	InicioIanus.tipoSubida = 1;
 								 if(new GestionServicioPuntero().gestion()){
-									 imprime(InicioIanus.teclaAzul2.getText(),true,0);
+									 imprime(InicioIanus.teclaAzul2.getText(),true,0,false);
 								 }
 									 
 							 }
@@ -1104,7 +1164,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 							}
 							*/
 						}
-											
+						jPanel.requestFocus();					
 						break;
 					}
 				}
@@ -1113,7 +1173,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
 			//	if(e.getKeyCode() == KeyEvent.VK_A )
 					
 			//	 System.out.println("keyReleased="+KeyEvent.getKeyText(e.getKeyCode()));
-				jPanel.requestFocus();
+				
 				try {
 					Robot robot = new Robot();
 					robot.delay(50);
@@ -1270,9 +1330,9 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
     
 /**********************************************   Nueva Version  *****************/
     
-    public void imprime(String cadena, boolean pulsadaBarraEspaciadora, int tipoDocAsubirForzado){
+    public void imprime(String cadena, boolean pulsadaBarraEspaciadora, int tipoDocAsubirForzado, boolean repetir){
 		Impresion impr = new Impresion();
-		impr.imprime(cadena,pulsadaBarraEspaciadora,tipoDocAsubirForzado);
+		impr.imprime(cadena,pulsadaBarraEspaciadora,tipoDocAsubirForzado,repetir);
 	}
     
     
@@ -1532,7 +1592,7 @@ public class VentanaBotonesDocMini extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel;    
+    public javax.swing.JPanel jPanel;    
 
     private javax.swing.JButton jButtonAzules;
     // End of variables declaration

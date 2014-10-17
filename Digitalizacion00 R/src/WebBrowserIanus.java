@@ -35,7 +35,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.eclipse.swt.widgets.Slider;
+//import org.eclipse.swt.widgets.Slider;
   
 import chrriis.common.UIUtils;   
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;   
@@ -69,6 +69,7 @@ public class WebBrowserIanus {
 	 
 	 private JLabel etiquetaEnBlanco = new JLabel("                  |               ");
 	 private JLabel etiquetaEnBlancoII = new JLabel("              |            ");
+	 private JLabel espacioCoordenadas = new JLabel("     ");
 	 
 	 public JButton botonRetardos = new JButton("T");
 	 
@@ -87,7 +88,10 @@ public class WebBrowserIanus {
 		    webBrowserPanel.setBorder(BorderFactory.createTitledBorder("Digitalización"));   
 		    webBrowser = new JWebBrowser();
 		    //webBrowser.navigate("http://www.google.es");
-		    //webBrowser.navigate("http://ianuschop");  
+		    // webBrowser.navigate("http://ianuschop");
+		    
+		    // webBrowser.navigate("http://intranetchopo.sergas.local/");		    
+		    
 		    webBrowser.setBarsVisible(false);
 		    webBrowser.setMenuBarVisible(false);
 		    //System.out.println(webBrowser.getBrowserType());
@@ -96,6 +100,13 @@ public class WebBrowserIanus {
 		    
 		    webBrowserPanel.add(webBrowser, BorderLayout.CENTER);   
 		    contentPane.add(webBrowserPanel, BorderLayout.CENTER); 
+		    
+
+		    
+		    Inicio.coordenadasPanel.setBackground(Color.black);
+		    
+		    webBrowserPanel.add(Inicio.coordenadasPanel, BorderLayout.SOUTH);
+		    
 		    
 		    if(barraOCRvisible){
 		    	
@@ -369,13 +380,25 @@ public class WebBrowserIanus {
 			    ocrPanel.setBorder(borde);
 			    
 			    contentPane.add(ocrPanel, BorderLayout.NORTH);
+			    
+
+		    }
+		    else{
+			    Inicio.coordenadasPanel.setLayout(new FlowLayout());
+			    Inicio.coordenadasPanel.add(Inicio.botonCoordIngresos);
+			    Inicio.coordenadasPanel.add(Inicio.botonCoordConsulta);
+			    Inicio.coordenadasPanel.add(Inicio.botonCoordCIA);
+			    Inicio.coordenadasPanel.add(Inicio.botonCoordQuirof);
+			    Inicio.coordenadasPanel.add(espacioCoordenadas);
+			    Inicio.coordenadasPanel.add(botonRetardos);
 		    }
 
 		    if(InicioIanus.documentacion == 0 || InicioIanus.documentacion == 1){
 		    	if(!Inicio.avisochapuza){
 			    	botonRetardos.setBackground(Color.lightGray);
 			    	botonRetardos.setText("Temporizadores");
-			    	webBrowserPanel.add(botonRetardos, BorderLayout.SOUTH);
+			    	
+			    
 			    	
 			    	/*
 			    	botonRetardos.addActionListener(new ActionListener() {

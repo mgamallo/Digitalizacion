@@ -406,7 +406,7 @@ public class InterFazTabla extends javax.swing.JFrame {
         
         if(comboElegido.toLowerCase().contains("HOSP".toLowerCase()) || comboElegido.toLowerCase().contains("URG".toLowerCase())){
         	InicioIanus.tipoDocAsubir = 1;
-        
+       
         }else if(comboElegido.toLowerCase().contains("CIA".toLowerCase())){
         	InicioIanus.tipoDocAsubir = 3;
         //	System.out.println(comboElegido);
@@ -415,6 +415,8 @@ public class InterFazTabla extends javax.swing.JFrame {
         //	System.out.println("Consulta" + comboElegido);
         }
     	// System.out.println(comboElegido);
+        
+    	Inicio.limpiarBotonesCoordenadas(InicioIanus.tipoDocAsubir);
                
     }                                               
 
@@ -431,7 +433,7 @@ public class InterFazTabla extends javax.swing.JFrame {
         int aux = InicioIanus.tipoDocAsubir;
         if(autocopiar && !InicioIanus.teclasAzulesEditables){        
         	RobotIanus pruebaRobot = new RobotIanus();
-        	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("DIG") && 
+        	if(InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.DIGC) && 
     				(listaHabituales.getSelectedValue().toString().contains(InicioIanus.ENFERMERIA_ENDOSCOPIAS) ||
 					 listaHabituales.getSelectedValue().toString().contains(InicioIanus.ENDOSCOPIA_DIGESTIVA) ||
 					 listaHabituales.getSelectedValue().toString().contains(InicioIanus.MANOMETRIA) ||
@@ -454,7 +456,7 @@ public class InterFazTabla extends javax.swing.JFrame {
            		InicioIanus.documentosClick++;				//	Para estadisticas
 
            		
-	            pruebaRobot.robotIanus(listaHabituales.getSelectedValue().toString(), retardo, pantallasIanus,InicioIanus.tipoDocAsubir, "",false);
+	            pruebaRobot.robotIanus(listaHabituales.getSelectedValue().toString(), retardo, pantallasIanus,InicioIanus.tipoDocAsubir, "",false,false);
 	   	            
 	            
 	            /***************** Abre los siguientes pdfs  **************************************************/
@@ -538,7 +540,7 @@ public class InterFazTabla extends javax.swing.JFrame {
 	   	 	         			InicioIanus.botonServicio.setText(InicioIanus.documentos[pdfNumero].servicio);
 	   	 	         			InicioIanus.botonNombreNormalizado.setText(InicioIanus.documentos[pdfNumero].nombreNormalizado);
 	   	 	         			
-	   	 	         			if(!InicioIanus.comboServicios.getSelectedItem().toString().equals(InicioIanus.documentos[pdfNumero].servicio)){
+	   	 	         			if(!InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.documentos[pdfNumero].servicio)){
 	   	 	         				InicioIanus.botonServicio.setBackground(Color.red);
 	   	 	         				Inicio.navegador1.ocrPanel.setBackground(Color.yellow);
 	   	 	         			}
@@ -589,7 +591,7 @@ public class InterFazTabla extends javax.swing.JFrame {
         int aux = InicioIanus.tipoDocAsubir;
         if(autocopiar && !InicioIanus.teclasAzulesEditables){        
         	RobotIanus pruebaRobot = new RobotIanus();
-        	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("DIG") && 
+        	if(InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.DIGC) && 
         				(listaHabituales2.getSelectedValue().toString().contains(InicioIanus.ENFERMERIA_ENDOSCOPIAS) ||
         				 listaHabituales2.getSelectedValue().toString().contains(InicioIanus.ENDOSCOPIA_DIGESTIVA) ||
         				 listaHabituales2.getSelectedValue().toString().contains(InicioIanus.MANOMETRIA) ||
@@ -612,7 +614,7 @@ public class InterFazTabla extends javax.swing.JFrame {
        		InicioIanus.documentosClick++;				//	Para estadisticas
         	
         	
-	            pruebaRobot.robotIanus(listaHabituales2.getSelectedValue().toString(), retardo, pantallasIanus, InicioIanus.tipoDocAsubir, "",false);
+	            pruebaRobot.robotIanus(listaHabituales2.getSelectedValue().toString(), retardo, pantallasIanus, InicioIanus.tipoDocAsubir, "",false,false);
 	            	            
 	            /***************** Abre los siguientes pdfs  **************************************************/
 	            
@@ -663,7 +665,7 @@ public class InterFazTabla extends javax.swing.JFrame {
 		 	         			InicioIanus.botonServicio.setText(InicioIanus.documentos[pdfNumero].servicio);
 		 	         			InicioIanus.botonNombreNormalizado.setText(InicioIanus.documentos[pdfNumero].nombreNormalizado);
 		 	         			
-		 	         			if(!InicioIanus.comboServicios.getSelectedItem().toString().equals(InicioIanus.documentos[pdfNumero].servicio)){
+		 	         			if(!InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.documentos[pdfNumero].servicio)){
 		 	         				InicioIanus.botonServicio.setBackground(Color.red);
 		 	         				Inicio.navegador1.ocrPanel.setBackground(Color.yellow);
 		 	         			}
@@ -740,7 +742,7 @@ public class InterFazTabla extends javax.swing.JFrame {
         int aux = InicioIanus.tipoDocAsubir;
         if(autocopiar && !InicioIanus.teclasAzulesEditables){
         	RobotIanus pruebaRobot = new RobotIanus();
-        	if(InicioIanus.comboServicios.getSelectedItem().toString().contains("DIG") && 
+        	if(InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.DIGC) && 
         			(listaServicio.getSelectedValue().toString().contains(InicioIanus.ENFERMERIA_ENDOSCOPIAS) ||
            			 listaServicio.getSelectedValue().toString().contains(InicioIanus.ENDOSCOPIA_DIGESTIVA) ||
            			 listaServicio.getSelectedValue().toString().contains(InicioIanus.MANOMETRIA) ||
@@ -762,7 +764,7 @@ public class InterFazTabla extends javax.swing.JFrame {
  
        		InicioIanus.documentosClick++;				//	Para estadisticas
         	
-	        	pruebaRobot.robotIanus(listaServicio.getSelectedValue().toString(), retardo, pantallasIanus, InicioIanus.tipoDocAsubir, "",false);
+	        	pruebaRobot.robotIanus(listaServicio.getSelectedValue().toString(), retardo, pantallasIanus, InicioIanus.tipoDocAsubir, "",false,false);
 	            
 	        	
 	        	/***************** Abre los siguientes pdfs  **************************************************/
@@ -810,7 +812,7 @@ public class InterFazTabla extends javax.swing.JFrame {
 	 	         			InicioIanus.botonServicio.setText(InicioIanus.documentos[pdfNumero].servicio);
 	 	         			InicioIanus.botonNombreNormalizado.setText(InicioIanus.documentos[pdfNumero].nombreNormalizado);
 	 	         			
-	 	         			if(!InicioIanus.comboServicios.getSelectedItem().toString().equals(InicioIanus.documentos[pdfNumero].servicio)){
+	 	         			if(!InicioIanus.comboServicios.getSelectedItem().toString().contains(InicioIanus.documentos[pdfNumero].servicio)){
 	 	         				InicioIanus.botonServicio.setBackground(Color.red);
 	 	         				Inicio.navegador1.ocrPanel.setBackground(Color.yellow);
 	 	         			}

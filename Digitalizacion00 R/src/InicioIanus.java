@@ -1,4 +1,5 @@
 import java.awt.AWTException;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
@@ -40,12 +41,28 @@ public class InicioIanus extends JFrame {
 	
 	static final String CONSENTIMIENTO = "Consentimento informado";
 	static final String EKG = "ECG";
+	static final String ECO = "Ecografía";
 	static final String LISTAESPERA = "Folla inclusión LE";
 	static final String MANOMETRIA = "Manometría";
 	static final String PHMETRIA = "Phmetría";
-	static final String ENFERMERIA_ENDOSCOPIAS = "Enfermería endoscopias";
+	static final String ENFERMERIA_ENDOSCOPIAS = "Folla enfermaría endoscopias";
 	static final String ENDOSCOPIA_DIGESTIVA = "Endoscopia Digestiva";
+	static final String INTERCONSULTA = "Interconsulta";
 	
+	static final String PRUEBAS_DIAGNOSTICAS = "Proba diagnóstica";
+	static final String PRICK = "Prick test";
+	static final String ESPIROMETRIA = "Espirometría";
+	static final String PRUEBAS_EPICUTANEAS = "Probas epicutáneas";
+	static final String PRUEBAS_PROVOCACION = "Probas provocación";
+	
+	static final String INFORMEURG = "Informe alta";
+	static final String ENFERMERIAURG = "Folla enfermaría urxencias";
+	
+	static final String DOC_ANULADO = "Documento anulado";
+	
+	static final String DIGC = "DIGC";
+	
+	static boolean sos = false;                    // Sirve para abortar la subida a ianus
 	
 	static String nombrePc;
 	static boolean ianus2pantallas = false;       	//	Si subimos con dos ianus, por defecto los ianus en una sola pantalla
@@ -172,6 +189,7 @@ public class InicioIanus extends JFrame {
 	
 	static Point coordMinimizar = new Point(2003,8);
 	static int retardoAsociar = 400;				// Retardo para pulsar el boton de asociar
+	static int retardoAsociarAceptar = 350;
 	static int retardoPegarTitulo = 0;			// Retardo para esperar a que dibuje la ventana asociar
 	static int retardoPulsarExaminar = 400;
 	static int retardoInterIanus = 300;
@@ -179,15 +197,17 @@ public class InicioIanus extends JFrame {
 	static int retardoAceptar = 150;
 	static boolean nodoForzado = false;
 	
+	static boolean coordenadasQuirofanoOn = false;
+	
 	/*********************************************************************************/
 
 	/******* Para gestionar el titulo normalizado a la hora de subir a ianus *********/
 
 	static HashSet<String> conjuntoTitulos = new HashSet<String>();
-	public static boolean suspensionTeclado = false;
+	static ArrayList<Alias> aliasTitulos = new ArrayList<Alias>();
 	
 	/**********************************************************************************/
-	
+		
 	/******* Para gestionar la captura de ratón y teclado *****************************/
 	
 	static CapturaRatonYTeclado ratonYteclado;
@@ -258,7 +278,12 @@ public class InicioIanus extends JFrame {
        if(InicioIanus.documentacion == 2 || InicioIanus.documentacion == 3){
     	   InicioIanus.ventanaBotonesTeclaAtributo = "Micro2";
     	   Inicio.navegador1.ocrPanel.setVisible(true);
+    	   
+    	   Inicio.ocultarBotonesCoordenadas();
+    	   Inicio.navegador1.webBrowserPanel.remove(Inicio.coordenadasPanel);
+    	   Inicio.navegador1.webBrowserPanel.add(Inicio.navegador1.botonRetardos,BorderLayout.SOUTH);
        }
+
        
        VentanaInicio dialog = new VentanaInicio(new javax.swing.JFrame(), true);
        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -277,14 +302,21 @@ public class InicioIanus extends JFrame {
            	// numeroPantallas = coordenadas.numPantallas;
         	
             Inicio.navegador1.frame.setBounds(Inicio.coordenadasVentanas.vPdf1);
-            Inicio.navegador1.frame.setVisible(true);
+            Inicio.navegador1.frame.setVisible(true); 
         	
            	
            	if(InicioIanus.numeroIanus == 2){
            		//Inicio.navegador2 = new WebBrowserIanus("Visor número 2", new Color(255,246,143));
            		Inicio.navegador2.frame.setBounds(Inicio.coordenadasVentanas.vPdf2);
-            	Inicio.navegador2.botonRetardos.setVisible(false);
+            	Inicio.navegador2.botonRetardos.setVisible(true);
            		Inicio.navegador2.frame.setVisible(true);
+           		
+           		Inicio.navegador1.webBrowserPanel.add(Inicio.coordenadasPanel,BorderLayout.SOUTH);
+           		
+           	}
+           	else if(InicioIanus.numeroIanus == 1 && (InicioIanus.documentacion == 0 || 
+           			InicioIanus.documentacion == 1)){
+           		Inicio.navegador1.webBrowserPanel.add(Inicio.coordenadasPanel,BorderLayout.SOUTH);
            	}
            	
             ventanaE = new VentanaExplorador();
@@ -306,8 +338,6 @@ public class InicioIanus extends JFrame {
             GlobalScreen.getInstance().addNativeKeyListener(ratonYteclado);
             GlobalScreen.getInstance().addNativeMouseListener(ratonYteclado);
             GlobalScreen.getInstance().addNativeMouseMotionListener(ratonYteclado);
-            
-            System.out.println("LLegamos?");
             
         }
 	}

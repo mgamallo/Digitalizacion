@@ -88,7 +88,3 @@ MButton::
 	Send ^2 
 
 return
-
-Escape::
-	ExitApp
-Return
